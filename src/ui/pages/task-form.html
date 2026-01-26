@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova tarefa</title>
+    <link rel="stylesheet" href="../styles/task-form.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <header class="card__header">
+          <h1>Nova tarefa</h1>
+          <p>Registre tempo manualmente ou via timer.</p>
+        </header>
+
+        <form class="task-form" id="taskForm" novalidate>
+          <div class="field">
+            <label for="taskName">Nome da tarefa</label>
+            <input
+              id="taskName"
+              name="taskName"
+              type="text"
+              placeholder="Ex.: Reunião com cliente"
+              required
+            />
+            <span class="field__message" id="taskNameError">Informe um nome.</span>
+          </div>
+
+          <div class="field">
+            <label for="projectName">Projeto (opcional)</label>
+            <input
+              id="projectName"
+              name="projectName"
+              type="text"
+              placeholder="Ex.: Projeto A"
+            />
+          </div>
+
+          <div class="field">
+            <span class="label">Modo de registro</span>
+            <div class="toggle">
+              <label class="toggle__option">
+                <input type="radio" name="mode" value="manual" checked />
+                Manual
+              </label>
+              <label class="toggle__option">
+                <input type="radio" name="mode" value="timer" />
+                Timer
+              </label>
+            </div>
+          </div>
+
+          <div class="mode mode--manual" id="manualMode">
+            <div class="field">
+              <label for="hours">Horas</label>
+              <input id="hours" name="hours" type="number" min="0" max="999" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="minutes">Minutos</label>
+              <input id="minutes" name="minutes" type="number" min="0" max="59" placeholder="0" />
+              <span class="field__message" id="manualError">
+                Informe um tempo maior que zero.
+              </span>
+            </div>
+          </div>
+
+          <div class="mode mode--timer is-hidden" id="timerMode">
+            <div class="timer-status" id="timerStatus" role="status" aria-live="polite">
+              <span class="timer-status__label">Status:</span>
+              <span class="timer-status__value" data-status="stopped">Parado</span>
+              <span class="timer-status__time" id="timerDisplay">00:00:00</span>
+            </div>
+            <div class="timer-controls">
+              <button type="button" class="button" id="startTimer">Iniciar</button>
+              <button type="button" class="button" id="pauseTimer" disabled>Pausar</button>
+              <button type="button" class="button button--ghost" id="stopTimer" disabled>
+                Finalizar
+              </button>
+            </div>
+          </div>
+
+          <footer class="form-footer">
+            <button class="button button--primary" type="submit">Salvar tarefa</button>
+          </footer>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById('taskForm');
+      const taskName = document.getElementById('taskName');
+      const taskNameError = document.getElementById('taskNameError');
+      const manualMode = document.getElementById('manualMode');
+      const timerMode = document.getElementById('timerMode');
+      const hours = document.getElementById('hours');
+      const minutes = document.getElementById('minutes');
+      const manualError = document.getElementById('manualError');
+      const startTimer = document.getElementById('startTimer');
+      const pauseTimer = document.getElementById('pauseTimer');
+      const stopTimer = document.getElementById('stopTimer');
+      const timerStatus = document.querySelector('.timer-status__value');
+      const timerDisplay = document.getElementById('timerDisplay');
+
+      let timerState = 'stopped';
+      let elapsedSeconds = 0;
+      let timerInterval = null;
+
+      function setMode(mode) {
+        const isManual = mode === 'manual';
+        manualMode.classList.toggle('is-hidden', !isManual);
+        timerMode.classList.toggle('is-hidden', isManual);
+      }
+
+      function updateTimerDisplay() {
+        const hoursValue = String(Math.floor(elapsedSeconds / 3600)).padStart(2, '0');
+        const minutesValue = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, '0');
+        const secondsValue = String(elapsedSeconds % 60).padStart(2, '0');
+        timerDisplay.textContent = `${hoursValue}:${minutesValue}:${secondsValue}`;
+      }
+
+      function setTimerState(state) {
+        timerState = state;
+        timerStatus.dataset.status = state;
+        timerStatus.textContent =
+          state === 'running' ? 'Em andamento' : state === 'paused' ? 'Pausado' : 'Parado';
+
+        startTimer.disabled = state === 'running';
+        pauseTimer.disabled = state !== 'running';
+        stopTimer.disabled = state === 'stopped';
+      }
+
+      function startInterval() {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+        timerInterval = setInterval(() => {
+          elapsedSeconds += 1;
+          updateTimerDisplay();
+        }, 1000);
+      }
+
+      document.querySelectorAll('input[name="mode"]').forEach((input) => {
+        input.addEventListener('change', (event) => {
+          setMode(event.target.value);
+        });
+      });
+
+      startTimer.addEventListener('click', () => {
+        setTimerState('running');
+        startInterval();
+      });
+
+      pauseTimer.addEventListener('click', () => {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+        setTimerState('paused');
+      });
+
+      stopTimer.addEventListener('click', () => {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+        setTimerState('stopped');
+      });
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        let isValid = true;
+
+        if (!taskName.value.trim()) {
+          taskName.classList.add('is-invalid');
+          taskNameError.classList.add('is-visible');
+          isValid = false;
+        } else {
+          taskName.classList.remove('is-invalid');
+          taskNameError.classList.remove('is-visible');
+        }
+
+        const activeMode = document.querySelector('input[name="mode"]:checked').value;
+        if (activeMode === 'manual') {
+          const totalMinutes = Number(hours.value || 0) * 60 + Number(minutes.value || 0);
+          if (totalMinutes <= 0) {
+            hours.classList.add('is-invalid');
+            minutes.classList.add('is-invalid');
+            manualError.classList.add('is-visible');
+            isValid = false;
+          } else {
+            hours.classList.remove('is-invalid');
+            minutes.classList.remove('is-invalid');
+            manualError.classList.remove('is-visible');
+          }
+        }
+
+        if (isValid) {
+          alert('Tarefa pronta para ser salva.');
+        }
+      });
+
+      setTimerState('stopped');
+      updateTimerDisplay();
+    </script>
+  </body>
+</html>
