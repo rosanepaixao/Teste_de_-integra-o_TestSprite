@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../styles/task-form.css" />
   </head>
   <body>
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <span id="toastMessage"></span>
+    </div>
     <main class="page">
       <section class="card">
         <header class="card__header">
@@ -107,6 +110,24 @@
 
           <ul class="project-list" id="projectList" aria-live="polite"></ul>
         </section>
+
+        <section class="task-history" aria-labelledby="taskHistoryTitle">
+          <header class="section-header">
+            <h2 id="taskHistoryTitle">Tarefas recentes</h2>
+            <p>Acompanhe as tarefas registradas mais recentes.</p>
+          </header>
+          <div class="state-panel" id="taskListState" aria-live="polite"></div>
+          <ul class="task-list" id="taskList" aria-live="polite"></ul>
+        </section>
+
+        <section class="report-summary" aria-labelledby="reportSummaryTitle">
+          <header class="section-header">
+            <h2 id="reportSummaryTitle">Relatórios</h2>
+            <p>Resumo de horas e tarefas no período selecionado.</p>
+          </header>
+          <div class="state-panel" id="reportState" aria-live="polite"></div>
+          <div class="report-cards" id="reportCards"></div>
+        </section>
       </section>
     </main>
 
@@ -129,12 +150,39 @@
       const projectInput = document.getElementById('projectInput');
       const projectError = document.getElementById('projectError');
       const projectList = document.getElementById('projectList');
+      const taskList = document.getElementById('taskList');
+      const taskListState = document.getElementById('taskListState');
+      const reportState = document.getElementById('reportState');
+      const reportCards = document.getElementById('reportCards');
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
 
       let timerState = 'stopped';
       let elapsedSeconds = 0;
       let timerInterval = null;
+      let toastTimeout = null;
+
+      const validationMessages = {
+        taskNameRequired: 'Informe um nome.',
+        durationRequired: 'Informe um tempo maior que zero.',
+        projectNameRequired: 'Informe um nome para o projeto.',
+        projectRenameRequired: 'Informe um nome para renomear.',
+        projectDuplicate: 'Já existe um projeto com esse nome.',
+      };
 
       const PROJECTS_KEY = 'time-tracker-projects';
+
+      function showToast(message, tone = 'success') {
+        toastMessage.textContent = message;
+        toast.dataset.tone = tone;
+        toast.classList.add('is-visible');
+        if (toastTimeout) {
+          clearTimeout(toastTimeout);
+        }
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('is-visible');
+        }, 2800);
+      }
 
       function loadProjects() {
         const stored = localStorage.getItem(PROJECTS_KEY);
@@ -157,15 +205,19 @@
         return name.trim().toLocaleLowerCase('pt-BR');
       }
 
-      function setProjectError(message) {
+      function setInputError(input, messageElement, message) {
         if (message) {
-          projectInput.classList.add('is-invalid');
-          projectError.textContent = message;
-          projectError.classList.add('is-visible');
+          input.classList.add('is-invalid');
+          messageElement.textContent = message;
+          messageElement.classList.add('is-visible');
         } else {
-          projectInput.classList.remove('is-invalid');
-          projectError.classList.remove('is-visible');
+          input.classList.remove('is-invalid');
+          messageElement.classList.remove('is-visible');
         }
+      }
+
+      function setProjectError(message) {
+        setInputError(projectInput, projectError, message);
       }
 
       function hasDuplicateName(name, excludeId = null) {
@@ -261,15 +313,21 @@
         renderProjectList(projects);
       }
 
+      function setListState(container, state, message) {
+        container.dataset.state = state;
+        container.textContent = message;
+        container.classList.toggle('is-visible', Boolean(message));
+      }
+
       function createProject(name) {
         const trimmed = name.trim();
         if (!trimmed) {
-          setProjectError('Informe um nome para o projeto.');
+          setProjectError(validationMessages.projectNameRequired);
           return;
         }
 
         if (hasDuplicateName(trimmed)) {
-          setProjectError('Já existe um projeto com esse nome.');
+          setProjectError(validationMessages.projectDuplicate);
           return;
         }
 
@@ -288,6 +346,7 @@
         projectInput.value = '';
         setProjectError('');
         renderProjects();
+        showToast('Projeto adicionado com sucesso.');
       }
 
       function handleRename(project) {
@@ -298,12 +357,12 @@
 
         const trimmed = newName.trim();
         if (!trimmed) {
-          setProjectError('Informe um nome para renomear.');
+          setProjectError(validationMessages.projectRenameRequired);
           return;
         }
 
         if (hasDuplicateName(trimmed, project.id)) {
-          setProjectError('Já existe um projeto com esse nome.');
+          setProjectError(validationMessages.projectDuplicate);
           return;
         }
 
@@ -321,6 +380,7 @@
         saveProjects(updatedProjects);
         setProjectError('');
         renderProjects();
+        showToast('Projeto renomeado.');
       }
 
       function handleDelete(project) {
@@ -346,6 +406,7 @@
 
         saveProjects(updatedProjects);
         renderProjects();
+        showToast('Projeto removido.');
       }
 
       function setMode(mode) {
@@ -391,6 +452,7 @@
       startTimer.addEventListener('click', () => {
         setTimerState('running');
         startInterval();
+        showToast('Timer iniciado.');
       });
 
       pauseTimer.addEventListener('click', () => {
@@ -398,6 +460,7 @@
           clearInterval(timerInterval);
         }
         setTimerState('paused');
+        showToast('Timer pausado.', 'warning');
       });
 
       stopTimer.addEventListener('click', () => {
@@ -405,6 +468,7 @@
           clearInterval(timerInterval);
         }
         setTimerState('stopped');
+        showToast('Timer finalizado.');
       });
 
       form.addEventListener('submit', (event) => {
@@ -412,12 +476,10 @@
         let isValid = true;
 
         if (!taskName.value.trim()) {
-          taskName.classList.add('is-invalid');
-          taskNameError.classList.add('is-visible');
+          setInputError(taskName, taskNameError, validationMessages.taskNameRequired);
           isValid = false;
         } else {
-          taskName.classList.remove('is-invalid');
-          taskNameError.classList.remove('is-visible');
+          setInputError(taskName, taskNameError, '');
         }
 
         const activeMode = document.querySelector('input[name="mode"]:checked').value;
@@ -426,6 +488,7 @@
           if (totalMinutes <= 0) {
             hours.classList.add('is-invalid');
             minutes.classList.add('is-invalid');
+            manualError.textContent = validationMessages.durationRequired;
             manualError.classList.add('is-visible');
             isValid = false;
           } else {
@@ -436,7 +499,7 @@
         }
 
         if (isValid) {
-          alert('Tarefa pronta para ser salva.');
+          showToast('Tarefa pronta para ser salva.');
         }
       });
 
@@ -447,7 +510,57 @@
 
       setTimerState('stopped');
       updateTimerDisplay();
+      setListState(taskListState, 'loading', 'Carregando tarefas...');
+      setListState(reportState, 'loading', 'Carregando relatórios...');
       renderProjects();
+
+      setTimeout(() => {
+        renderTaskHistory([]);
+        renderReportSummary(null);
+      }, 600);
+
+      function renderTaskHistory(tasks) {
+        taskList.innerHTML = '';
+        if (!tasks || tasks.length === 0) {
+          setListState(taskListState, 'empty', 'Nenhuma tarefa registrada no período.');
+          return;
+        }
+        setListState(taskListState, '', '');
+        tasks.forEach((task) => {
+          const item = document.createElement('li');
+          item.className = 'task-list__item';
+          item.innerHTML = `
+            <div>
+              <div class="task-list__name">${task.name}</div>
+              <div class="task-list__meta">${task.project || 'Sem projeto'} · ${task.date}</div>
+            </div>
+            <span class="task-list__duration">${task.duration}</span>
+          `;
+          taskList.appendChild(item);
+        });
+      }
+
+      function renderReportSummary(summary) {
+        reportCards.innerHTML = '';
+        if (!summary) {
+          setListState(reportState, 'empty', 'Sem dados para gerar relatórios.');
+          return;
+        }
+        setListState(reportState, '', '');
+        const cards = [
+          { label: 'Horas totais', value: summary.totalHours },
+          { label: 'Tarefas no período', value: summary.totalTasks },
+        ];
+        cards.forEach((card) => {
+          const cardEl = document.createElement('div');
+          cardEl.className = 'report-card';
+          cardEl.innerHTML = `
+            <span class="report-card__label">${card.label}</span>
+            <span class="report-card__value">${card.value}</span>
+          `;
+          reportCards.appendChild(cardEl);
+        });
+      }
     </script>
   </body>
 </html>

@@ -63,6 +63,33 @@ body {
     var(--color-bg);
 }
 
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #111827;
+  color: #f9fafb;
+  font-weight: 600;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.toast[data-tone="warning"] {
+  background: #f59e0b;
+  color: #111827;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .page {
   display: flex;
   align-items: center;
@@ -294,6 +321,15 @@ body {
   padding-top: var(--space-4);
 }
 
+.task-history,
+.report-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
+}
+
 .project-form {
   display: flex;
   flex-direction: column;
@@ -333,6 +369,83 @@ body {
   border: 1px dashed var(--color-border);
   color: var(--color-text-muted);
   background: var(--color-surface-elevated);
+}
+
+.state-panel {
+  display: none;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px dashed #d1d5db;
+  color: #6b7280;
+  background: #f9fafb;
+  font-size: 14px;
+}
+
+.state-panel.is-visible {
+  display: block;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.task-list__name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.task-list__meta {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.task-list__duration {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.report-cards {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.report-card {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.report-card__label {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.report-card__value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
 }
 
 .project-actions {
