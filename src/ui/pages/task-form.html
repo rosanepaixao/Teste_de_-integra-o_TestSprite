@@ -28,13 +28,10 @@
           </div>
 
           <div class="field">
-            <label for="projectName">Projeto (opcional)</label>
-            <input
-              id="projectName"
-              name="projectName"
-              type="text"
-              placeholder="Ex.: Projeto A"
-            />
+            <label for="projectSelect">Projeto (opcional)</label>
+            <select id="projectSelect" name="projectId">
+              <option value="">Sem projeto</option>
+            </select>
           </div>
 
           <div class="field">
@@ -84,6 +81,32 @@
             <button class="button button--primary" type="submit">Salvar tarefa</button>
           </footer>
         </form>
+
+        <section class="project-manager" aria-labelledby="projectManagerTitle">
+          <header class="section-header">
+            <h2 id="projectManagerTitle">Projetos</h2>
+            <p>Crie, renomeie ou remova projetos para organizar suas tarefas.</p>
+          </header>
+
+          <form class="project-form" id="projectForm" novalidate>
+            <div class="field">
+              <label for="projectInput">Novo projeto</label>
+              <input
+                id="projectInput"
+                name="projectInput"
+                type="text"
+                placeholder="Ex.: Cliente Alfa"
+                required
+              />
+              <span class="field__message" id="projectError">
+                Informe um nome único para o projeto.
+              </span>
+            </div>
+            <button class="button button--primary" type="submit">Adicionar projeto</button>
+          </form>
+
+          <ul class="project-list" id="projectList" aria-live="polite"></ul>
+        </section>
       </section>
     </main>
 
@@ -91,6 +114,7 @@
       const form = document.getElementById('taskForm');
       const taskName = document.getElementById('taskName');
       const taskNameError = document.getElementById('taskNameError');
+      const projectSelect = document.getElementById('projectSelect');
       const manualMode = document.getElementById('manualMode');
       const timerMode = document.getElementById('timerMode');
       const hours = document.getElementById('hours');
@@ -101,10 +125,228 @@
       const stopTimer = document.getElementById('stopTimer');
       const timerStatus = document.querySelector('.timer-status__value');
       const timerDisplay = document.getElementById('timerDisplay');
+      const projectForm = document.getElementById('projectForm');
+      const projectInput = document.getElementById('projectInput');
+      const projectError = document.getElementById('projectError');
+      const projectList = document.getElementById('projectList');
 
       let timerState = 'stopped';
       let elapsedSeconds = 0;
       let timerInterval = null;
+
+      const PROJECTS_KEY = 'time-tracker-projects';
+
+      function loadProjects() {
+        const stored = localStorage.getItem(PROJECTS_KEY);
+        if (!stored) {
+          return [];
+        }
+        try {
+          const parsed = JSON.parse(stored);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function saveProjects(projects) {
+        localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
+      }
+
+      function normalizeName(name) {
+        return name.trim().toLocaleLowerCase('pt-BR');
+      }
+
+      function setProjectError(message) {
+        if (message) {
+          projectInput.classList.add('is-invalid');
+          projectError.textContent = message;
+          projectError.classList.add('is-visible');
+        } else {
+          projectInput.classList.remove('is-invalid');
+          projectError.classList.remove('is-visible');
+        }
+      }
+
+      function hasDuplicateName(name, excludeId = null) {
+        const normalized = normalizeName(name);
+        return loadProjects().some(
+          (project) => normalizeName(project.name) === normalized && project.id !== excludeId,
+        );
+      }
+
+      function renderProjectSelect(projects) {
+        const selectedValue = projectSelect.value;
+        projectSelect.innerHTML = '';
+
+        const emptyOption = document.createElement('option');
+        emptyOption.value = '';
+        emptyOption.textContent = 'Sem projeto';
+        projectSelect.appendChild(emptyOption);
+
+        const activeProjects = projects.filter((project) => project.status === 'active');
+        if (activeProjects.length === 0) {
+          const emptyState = document.createElement('option');
+          emptyState.value = '';
+          emptyState.textContent = 'Nenhum projeto ativo';
+          emptyState.disabled = true;
+          projectSelect.appendChild(emptyState);
+        } else {
+          activeProjects.forEach((project) => {
+            const option = document.createElement('option');
+            option.value = project.id;
+            option.textContent = project.name;
+            projectSelect.appendChild(option);
+          });
+        }
+
+        const stillAvailable = activeProjects.some((project) => project.id === selectedValue);
+        projectSelect.value = stillAvailable ? selectedValue : '';
+      }
+
+      function renderProjectList(projects) {
+        projectList.innerHTML = '';
+
+        if (projects.length === 0) {
+          const emptyItem = document.createElement('li');
+          emptyItem.className = 'project-list__empty';
+          emptyItem.textContent = 'Nenhum projeto cadastrado ainda.';
+          projectList.appendChild(emptyItem);
+          return;
+        }
+
+        projects.forEach((project) => {
+          const item = document.createElement('li');
+          item.className = 'project-list__item';
+
+          const nameWrapper = document.createElement('div');
+          nameWrapper.className = 'project-list__name';
+          nameWrapper.textContent = project.name;
+          item.appendChild(nameWrapper);
+
+          if (project.status === 'deleted') {
+            const status = document.createElement('span');
+            status.className = 'project-status project-status--deleted';
+            status.textContent = 'Removido';
+            item.appendChild(status);
+          }
+
+          const actions = document.createElement('div');
+          actions.className = 'project-actions';
+
+          const renameButton = document.createElement('button');
+          renameButton.type = 'button';
+          renameButton.className = 'button';
+          renameButton.textContent = 'Renomear';
+          renameButton.disabled = project.status === 'deleted';
+          renameButton.addEventListener('click', () => handleRename(project));
+
+          const deleteButton = document.createElement('button');
+          deleteButton.type = 'button';
+          deleteButton.className = 'button button--ghost';
+          deleteButton.textContent = 'Remover';
+          deleteButton.disabled = project.status === 'deleted';
+          deleteButton.addEventListener('click', () => handleDelete(project));
+
+          actions.appendChild(renameButton);
+          actions.appendChild(deleteButton);
+          item.appendChild(actions);
+          projectList.appendChild(item);
+        });
+      }
+
+      function renderProjects() {
+        const projects = loadProjects();
+        renderProjectSelect(projects);
+        renderProjectList(projects);
+      }
+
+      function createProject(name) {
+        const trimmed = name.trim();
+        if (!trimmed) {
+          setProjectError('Informe um nome para o projeto.');
+          return;
+        }
+
+        if (hasDuplicateName(trimmed)) {
+          setProjectError('Já existe um projeto com esse nome.');
+          return;
+        }
+
+        const now = new Date().toISOString();
+        const project = {
+          id: crypto.randomUUID ? crypto.randomUUID() : `project-${Date.now()}`,
+          name: trimmed,
+          status: 'active',
+          createdAt: now,
+          updatedAt: now,
+        };
+
+        const projects = loadProjects();
+        projects.push(project);
+        saveProjects(projects);
+        projectInput.value = '';
+        setProjectError('');
+        renderProjects();
+      }
+
+      function handleRename(project) {
+        const newName = window.prompt('Novo nome do projeto:', project.name);
+        if (newName === null) {
+          return;
+        }
+
+        const trimmed = newName.trim();
+        if (!trimmed) {
+          setProjectError('Informe um nome para renomear.');
+          return;
+        }
+
+        if (hasDuplicateName(trimmed, project.id)) {
+          setProjectError('Já existe um projeto com esse nome.');
+          return;
+        }
+
+        const projects = loadProjects();
+        const updatedProjects = projects.map((stored) => {
+          if (stored.id !== project.id) {
+            return stored;
+          }
+          return {
+            ...stored,
+            name: trimmed,
+            updatedAt: new Date().toISOString(),
+          };
+        });
+        saveProjects(updatedProjects);
+        setProjectError('');
+        renderProjects();
+      }
+
+      function handleDelete(project) {
+        if (
+          !window.confirm(
+            `Deseja remover o projeto "${project.name}"? Ele não aparecerá em novas tarefas.`,
+          )
+        ) {
+          return;
+        }
+
+        const projects = loadProjects();
+        const updatedProjects = projects.map((stored) => {
+          if (stored.id !== project.id) {
+            return stored;
+          }
+          return {
+            ...stored,
+            status: 'deleted',
+            updatedAt: new Date().toISOString(),
+          };
+        });
+
+        saveProjects(updatedProjects);
+        renderProjects();
+      }
 
       function setMode(mode) {
         const isManual = mode === 'manual';
@@ -198,8 +440,14 @@
         }
       });
 
+      projectForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        createProject(projectInput.value);
+      });
+
       setTimerState('stopped');
       updateTimerDisplay();
+      renderProjects();
     </script>
   </body>
 </html>
