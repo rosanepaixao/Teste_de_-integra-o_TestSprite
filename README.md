@@ -1,47 +1,39 @@
 # Time Tracker
 
-Projeto de acompanhamento de tempo para tarefas e projetos, com foco em registro manual ou via timer, histórico e relatórios. A implementação atual inclui uma página de formulário de tarefa em HTML/CSS com lógica em JavaScript puro.
+Projeto de acompanhamento de tempo para tarefas e projetos, com foco em registro manual ou via timer, histórico e relatórios. Agora utiliza React + TypeScript com Vite e Zustand, mantendo camadas de domínio e dados.
 
 ## Como rodar o projeto
 
-Como o projeto é estático (HTML/CSS/JS), você pode abrir o arquivo diretamente no navegador ou servir com um servidor local simples.
+### Desenvolvimento
 
-### Opção 1: abrir direto no navegador
-
-1. Navegue até o arquivo:
+1. Instale as dependências:
 
 ```
-src/ui/pages/task-form.html
+npm install
 ```
 
-2. Abra-o no navegador de sua preferência.
-
-### Opção 2: servir com um servidor local
-
-A partir da raiz do projeto, execute um servidor local. Exemplo com Python:
+2. Rode o Vite:
 
 ```
-python3 -m http.server 8000
+npm run dev
 ```
 
-Em seguida, acesse no navegador:
-
-```
-http://localhost:8000/src/ui/pages/task-form.html
-```
+3. Abra o endereço exibido no terminal (geralmente `http://localhost:5173`).
 
 ## Estrutura principal
 
 ```
 src/
-  ui/
-    pages/       # páginas HTML
-    styles/      # folhas de estilo
+  app/           # bootstrap do React
+  features/      # páginas e componentes por feature
+  application/   # casos de uso (orquestra domínio/dados)
   domain/        # regras de negócio e entidades
   data/          # repositórios e storage
+  shared/        # utils, styles e componentes reutilizáveis
+  legacy/        # HTML/CSS original para referência
 ```
 
 ## Observações
 
 - Os projetos são armazenados localmente no `localStorage` do navegador, portanto os dados ficam salvos no mesmo navegador/dispositivo.
-- Não há backend ou dependências de build no momento.
+- Não há backend.
