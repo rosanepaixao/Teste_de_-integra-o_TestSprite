@@ -374,3 +374,94 @@ Apenas **uma tarefa com timer ativo por vez**.
 - Soft delete de projetos
 - Data de referência clara por tipo de tarefa
 - Persistência local
+
+---
+
+## 12. Arquitetura em camadas e fluxo de estado
+
+### 12.1 Camadas (UI, domínio, dados)
+
+- **UI (`src/ui`)**
+  - Componentes, páginas e layout.
+  - Orquestra eventos do usuário e consome casos de uso do domínio.
+  - Não acessa storage diretamente.
+- **Domínio (`src/domain`)**
+  - Regras de negócio, entidades e casos de uso.
+  - Define contratos (interfaces) para repositórios e serviços de tempo.
+  - Garante validações (ex.: duração > 0, timer único ativo).
+- **Dados (`src/data`)**
+  - Implementações de repositório.
+  - Persistência local (IndexedDB/localStorage).
+  - Mapeia DTOs ↔ entidades e mantém critérios de serialização.
+
+### 12.2 Fluxo de estado global
+
+1. **UI** dispara ações (ex.: criar tarefa, iniciar timer, filtrar).
+2. **Domínio** executa casos de uso:
+   - Valida regras.
+   - Atualiza entidades.
+   - Emite mudanças de estado (ex.: tarefa iniciada, tarefa finalizada).
+3. **Dados** persiste as mudanças e retorna estado atualizado.
+4. **UI** re-renderiza com o estado global consistente.
+
+**Observação:** o estado global deve ser tratado como fonte única da verdade (single source of truth), com atualizações sempre passando pelo domínio.
+
+---
+
+## 13. Persistência local e serialização
+
+### 13.1 Estratégia
+
+- **Primária:** IndexedDB (melhor para volume e performance).
+- **Fallback:** localStorage (para ambientes restritos).
+- A aplicação deve detectar suporte a IndexedDB e usar localStorage apenas quando necessário.
+
+### 13.2 Critérios de serialização
+
+- Datas sempre em **ISO 8601** (`YYYY-MM-DDTHH:mm:ss.sssZ`).
+- Durações em **segundos** (inteiro).
+- `status` e `mode` como **strings** (enums serializados).
+- `project_id` pode ser `null`.
+- Registros soft delete mantêm `status = "deleted"`.
+
+### 13.3 Versionamento
+
+- Incluir um campo `schema_version` na raiz do storage.
+- Permitir migrações simples (ex.: mudanças em nomes de campos) com versão incremental.
+
+---
+
+## 14. Padrão de pastas e convenções
+
+```
+src/
+  ui/
+    components/
+    pages/
+    hooks/
+  domain/
+    entities/
+    use-cases/
+    services/
+    ports/
+  data/
+    repositories/
+    storage/
+    mappers/
+```
+
+### Convenções
+
+- **UI** deve chamar apenas **casos de uso** (não acessar repositórios diretamente).
+- **Domínio** não conhece detalhes de infraestrutura/persistência.
+- **Dados** implementa interfaces definidas em `domain/ports`.
+- Nomes de arquivos em **kebab-case** (ex.: `task-repository.ts`).
+- Entidades em **camelCase** para atributos.
+
+---
+
+## 15. Registro de decisões adicionais
+
+- Timer único ativo por vez (RN-03).
+- Soft delete de projetos (RF-06.3).
+- Datas de referência: `logged_at` (manual) e `start_at` (timer) (RN-04).
