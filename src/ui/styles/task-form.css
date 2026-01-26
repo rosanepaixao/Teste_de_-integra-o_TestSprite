@@ -60,14 +60,17 @@ body {
   color: #374151;
 }
 
-.field input {
+.field input,
+.field select {
   border-radius: 10px;
   border: 1px solid #d1d5db;
   padding: 12px 14px;
   font-size: 15px;
+  background-color: #ffffff;
 }
 
-.field input:focus {
+.field input:focus,
+.field select:focus {
   outline: 2px solid #6366f1;
   border-color: transparent;
 }
@@ -197,4 +200,80 @@ body {
   background: transparent;
   border: 1px solid #cbd5f5;
   color: #4f46e5;
+}
+
+.section-header h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.section-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.project-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
+}
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.project-list__name {
+  font-weight: 600;
+  color: #111827;
+  flex: 1;
+}
+
+.project-list__empty {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px dashed #d1d5db;
+  color: #6b7280;
+  background: #f9fafb;
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.project-status--deleted {
+  background: #fee2e2;
+  color: #991b1b;
 }
