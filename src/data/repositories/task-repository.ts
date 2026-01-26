@@ -1,9 +1,11 @@
 import type { Task } from "../../domain/entities/task";
 import type { TaskRepository } from "../../domain/ports/task-repository";
+import { assertValidTask } from "../../domain/services/task-validator";
 import { loadDatabase, saveDatabase } from "../storage/storage";
 
 export class LocalTaskRepository implements TaskRepository {
   async create(task: Task): Promise<Task> {
+    assertValidTask(task);
     const database = loadDatabase();
     database.tasks = [...database.tasks, task];
     saveDatabase(database);
@@ -11,6 +13,7 @@ export class LocalTaskRepository implements TaskRepository {
   }
 
   async update(task: Task): Promise<Task> {
+    assertValidTask(task);
     const database = loadDatabase();
     const index = database.tasks.findIndex((stored) => stored.id === task.id);
 
