@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTaskFormStore } from "../../task-form/store/task-form-store";
 
 export function ProjectsPage() {
   const { projects, projectError, createProject, renameProject, deleteProject, refreshProjects } =
     useTaskFormStore();
+  const [renameTarget, setRenameTarget] = useState<{ id: string; name: string } | null>(null);
+  const [renameValue, setRenameValue] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
 
   useEffect(() => {
     void refreshProjects();
@@ -65,10 +68,8 @@ export function ProjectsPage() {
                     className="button"
                     disabled={project.status === "deleted"}
                     onClick={() => {
-                      const next = window.prompt("Novo nome do projeto:", project.name);
-                      if (next !== null) {
-                        void renameProject(project.id, next);
-                      }
+                      setRenameTarget({ id: project.id, name: project.name });
+                      setRenameValue(project.name);
                     }}
                   >
                     Renomear
@@ -77,15 +78,7 @@ export function ProjectsPage() {
                     type="button"
                     className="button button--ghost"
                     disabled={project.status === "deleted"}
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          `Deseja remover o projeto "${project.name}"? Ele nao aparecera em novas tarefas.`,
-                        )
-                      ) {
-                        void deleteProject(project.id);
-                      }
-                    }}
+                    onClick={() => setDeleteTarget({ id: project.id, name: project.name })}
                   >
                     Remover
                   </button>
@@ -95,6 +88,84 @@ export function ProjectsPage() {
           )}
         </ul>
       </section>
+
+      {renameTarget ? (
+        <div className="modal" role="dialog" aria-modal="true" aria-labelledby="renameProjectTitle">
+          <div className="modal__overlay" onClick={() => setRenameTarget(null)} />
+          <div className="modal__content">
+            <header className="modal__header">
+              <div>
+                <h2 id="renameProjectTitle">Renomear projeto</h2>
+                <p>Atualize o nome para facilitar a identificacao nas tarefas.</p>
+              </div>
+              <button type="button" className="button button--ghost" onClick={() => setRenameTarget(null)}>
+                Fechar
+              </button>
+            </header>
+
+            <form
+              className="project-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                void renameProject(renameTarget.id, renameValue);
+                setRenameTarget(null);
+              }}
+              noValidate
+            >
+              <div className="field">
+                <label htmlFor="renameProjectInput">Novo nome do projeto</label>
+                <input
+                  id="renameProjectInput"
+                  name="renameProjectInput"
+                  type="text"
+                  value={renameValue}
+                  onChange={(event) => setRenameValue(event.target.value)}
+                />
+                <span className={`field__message ${projectError ? "is-visible" : ""}`}>{projectError}</span>
+              </div>
+              <div className="project-actions">
+                <button className="button button--primary" type="submit">
+                  Salvar
+                </button>
+                <button type="button" className="button button--ghost" onClick={() => setRenameTarget(null)}>
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : null}
+
+      {deleteTarget ? (
+        <div className="modal" role="dialog" aria-modal="true" aria-labelledby="deleteProjectTitle">
+          <div className="modal__overlay" onClick={() => setDeleteTarget(null)} />
+          <div className="modal__content">
+            <header className="modal__header">
+              <div>
+                <h2 id="deleteProjectTitle">Remover projeto</h2>
+                <p>
+                  Deseja remover o projeto "{deleteTarget.name}"? Ele nao aparecera em novas tarefas.
+                </p>
+              </div>
+            </header>
+            <div className="project-actions">
+              <button
+                type="button"
+                className="button button--primary"
+                onClick={() => {
+                  void deleteProject(deleteTarget.id);
+                  setDeleteTarget(null);
+                }}
+              >
+                Confirmar
+              </button>
+              <button type="button" className="button button--ghost" onClick={() => setDeleteTarget(null)}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
