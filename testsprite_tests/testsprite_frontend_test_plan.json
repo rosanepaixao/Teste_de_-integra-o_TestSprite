@@ -1,0 +1,925 @@
+[
+  {
+    "id": "TC001",
+    "title": "View recent tasks list and summary cards on Tarefas page",
+    "description": "Verifies the Tarefas page renders the recent tasks list and the summary cards are visible.",
+    "category": "Task list, filters, and report summary",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Tarefas no periodo\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Filter tasks by valid date range and clear filters",
+    "description": "Verifies that applying a valid De/Ate range updates the list and summary cards, and clearing filters resets them.",
+    "category": "Task list, filters, and report summary",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2026-02-01\" into the \"De\" date filter field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2026-02-21\" into the \"Ate\" date filter field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Limpar filtros\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Filter tasks by project = Todos",
+    "description": "Verifies selecting the project filter \"Todos\" keeps the list available and summary cards visible.",
+    "category": "Task list, filters, and report summary",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Todos\" from the project filter dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Tarefas no periodo\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Filter tasks by project = Sem projeto",
+    "description": "Verifies selecting the project filter \"Sem projeto\" updates the view without breaking list rendering and keeps summary cards visible.",
+    "category": "Task list, filters, and report summary",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Sem projeto\" from the project filter dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Tarefas no periodo\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Filter tasks by a specific project (when available)",
+    "description": "Verifies selecting a specific project filter option (if present) updates the list and keeps summary cards visible.",
+    "category": "Task list, filters, and report summary",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Click the project filter dropdown"
+      },
+      {
+        "type": "action",
+        "description": "Select the first specific project option that is not \"Todos\" and not \"Sem projeto\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Tarefas no periodo\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Combine date range and project filter together",
+    "description": "Verifies using both date filters and a project filter together still renders results and summary cards without errors.",
+    "category": "Task list, filters, and report summary",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2026-02-01\" into the \"De\" date filter field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2026-02-21\" into the \"Ate\" date filter field"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Todos\" from the project filter dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Tarefas no periodo\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Delete a task via Excluir and confirm deletion updates summary cards",
+    "description": "Verifies deleting a task through the confirmation modal removes it from the list and updates the summary cards.",
+    "category": "Task list, filters, and report summary",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Excluir\" on the first task row in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Delete confirmation modal\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Confirmar\" in the modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Tarefas no periodo\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Cancel task deletion from confirmation modal",
+    "description": "Verifies canceling the deletion keeps the task list visible and no destructive action is completed.",
+    "category": "Task list, filters, and report summary",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Excluir\" on the first task row in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Delete confirmation modal\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Cancelar\" in the modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Invalid date range shows user-facing validation and does not apply filters",
+    "description": "Verifies setting De after Ate triggers a visible validation message and prevents applying the invalid filter range.",
+    "category": "Task list, filters, and report summary",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Tarefas\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2026-02-21\" into the \"De\" date filter field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2026-02-01\" into the \"Ate\" date filter field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"intervalo de datas inválido\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Recent tasks list\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Create a completed manual task with project and verify list + totals update",
+    "description": "Verifies a user can create a finished task using manual duration with an optional project and that the task list and total hours update.",
+    "category": "Create manual task",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nova tarefa\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Correção de bug\" into \"Nome da tarefa\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Cliente A\" from the project dropdown"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Manual\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2\" into \"Horas\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"30\" into \"Minutos\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Salvar tarefa\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Nova tarefa\" modal is not visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Correção de bug\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Finalizada\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"02:30\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Horas totais\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Create a completed manual task without selecting a project (Sem projeto)",
+    "description": "Verifies a user can create a finished manual task while keeping the project unset.",
+    "category": "Create manual task",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Tarefa sem projeto\" into \"Nome da tarefa\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Manual\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Type \"45\" into \"Minutos\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Salvar tarefa\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Nova tarefa\" modal is not visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Tarefa sem projeto\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"00:45\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Validation: cannot save manual task when name is empty",
+    "description": "Verifies the form blocks saving and shows a required-name validation message when the task name is missing.",
+    "category": "Create manual task",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Manual\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Type \"1\" into \"Horas\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Salvar tarefa\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nome\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"obrigatório\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nova tarefa\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Validation: cannot save manual task when duration is 0 hours and 0 minutes",
+    "description": "Verifies the form blocks saving and shows a validation message when manual duration is zero.",
+    "category": "Create manual task",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Teste\" into \"Nome da tarefa\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Manual\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Type \"0\" into \"Horas\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"0\" into \"Minutos\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Salvar tarefa\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"duração\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"maior que zero\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nova tarefa\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Manual task with minutes only (no hours) saves and formats duration correctly",
+    "description": "Verifies that entering only minutes creates a finished task and displays duration in HH:MM format.",
+    "category": "Create manual task",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Reunião rápida\" into \"Nome da tarefa\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Manual\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Type \"15\" into \"Minutos\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Salvar tarefa\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Reunião rápida\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"00:15\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Manual task with hours only (no minutes) saves and formats duration correctly",
+    "description": "Verifies that entering only hours creates a finished task and displays duration in HH:MM format.",
+    "category": "Create manual task",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Planejamento\" into \"Nome da tarefa\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Manual\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Type \"3\" into \"Horas\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Salvar tarefa\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Planejamento\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"03:00\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Cancel/close modal does not create a task",
+    "description": "Verifies that closing the new-task modal without saving does not add a task to the list.",
+    "category": "Create manual task",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Não deve salvar\" into \"Nome da tarefa\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Manual\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Type \"10\" into \"Minutos\""
+      },
+      {
+        "type": "action",
+        "description": "Press \"Escape\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Nova tarefa\" modal is not visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Não deve salvar\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Finalize immediately after start still results in a persisted task",
+    "description": "Verifies a timer task can be started and immediately finalized, and it still appears in the list as finalized.",
+    "category": "Create timer task (start, pause, resume, finalize)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Timer rápido\" into \"Nome da tarefa\" field"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Timer\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Iniciar\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Finalizar\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Timer rápido\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Finalizada\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Validation: cannot start timer without task name",
+    "description": "Verifies that leaving the task name empty blocks starting a timer and shows a visible validation message.",
+    "category": "Create timer task (start, pause, resume, finalize)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nova tarefa\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Timer\" mode"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Iniciar\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nome da tarefa\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Iniciar\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Cancel/close new task modal does not create a task",
+    "description": "Verifies closing the \"Nova tarefa\" modal without starting does not add a new task to the list.",
+    "category": "Create timer task (start, pause, resume, finalize)",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Não deve salvar\" into \"Nome da tarefa\" field"
+      },
+      {
+        "type": "action",
+        "description": "Press \"Escape\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nova tarefa\" is not visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Não deve salvar\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Create a new project and verify it is selectable in 'Nova tarefa'",
+    "description": "Creates a project from the Projetos view and confirms it appears in the task project selection.",
+    "category": "Project management (create, rename, remove)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Projetos\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Novo projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Cliente A\" into the project name field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Adicionar projeto\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Cliente A\" is visible in the projects list"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Nova tarefa\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Cliente A\" is visible in the project selection options"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Prevent creating a duplicate project name (case-insensitive)",
+    "description": "Attempts to create a project with an existing name using different casing and verifies duplicate validation blocks creation.",
+    "category": "Project management (create, rename, remove)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Projetos\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Novo projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Cliente A\" into the project name field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Adicionar projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Novo projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"cliente a\" into the project name field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Adicionar projeto\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"já existe\" (or equivalent duplicate-name validation message) is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Prevent creating a duplicate project name when extra spaces are used (trim validation)",
+    "description": "Attempts to create a project with leading/trailing spaces and verifies it is treated as duplicate and not created.",
+    "category": "Project management (create, rename, remove)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Projetos\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Novo projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Cliente A\" into the project name field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Adicionar projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Novo projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"  Cliente A  \" into the project name field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Adicionar projeto\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"já existe\" (or equivalent duplicate-name validation message) is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Require project name when creating a new project",
+    "description": "Attempts to create a project with an empty name and verifies required-field validation blocks creation.",
+    "category": "Project management (create, rename, remove)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Projetos\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Novo projeto\""
+      },
+      {
+        "type": "action",
+        "description": "Click the project name field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Adicionar projeto\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"obrigatório\" (or equivalent required-name validation message) is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Projeto adicionado\" (or equivalent success message) is not visible"
+      }
+    ]
+  }
+]

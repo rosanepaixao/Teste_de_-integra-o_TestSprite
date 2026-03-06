@@ -104,6 +104,10 @@ export class TaskUseCases {
     return this.timerService.end(taskId);
   }
 
+  async delete(taskId: string): Promise<void> {
+    await this.taskRepository.delete(taskId);
+  }
+
   async listAll(): Promise<Task[]> {
     return this.taskRepository.list();
   }

@@ -1,0 +1,93 @@
+version: "2"
+type: frontend
+tech_stack:
+  - language: TypeScript
+    framework: React 18
+    ui_library: React DOM + custom CSS
+    other:
+      - Vite
+      - Zustand (state management)
+      - localStorage (persistence, no backend)
+routes:
+  - path: /
+    file: src/app/App.tsx
+    auth_required: false
+    description: Single-page app with sidebar navigation between "Tarefas" and "Projetos" (no URL routing).
+features:
+  - name: Task list, filters, and report summary
+    description: View recent tasks, filter by date range and project, and see report summary cards.
+    files:
+      - src/features/task-form/pages/TaskFormPage.tsx
+      - src/features/task-form/store/task-form-store.ts
+      - src/application/task/task-use-cases.ts
+      - src/data/repositories/task-repository.ts
+      - src/shared/utils/time.ts
+    entry_route: /
+    user_interactions:
+      - View tasks list and per-task duration
+      - Set "De" and "Ate" date filters
+      - Filter by "Todos", "Sem projeto", or a specific project
+      - Click "Limpar filtros" to reset filters
+      - See "Horas totais" and "Tarefas no periodo" cards update with filters
+      - Delete a task via "Excluir" and confirm in modal
+    api_calls: []
+    auth_required: false
+  - name: Create manual task
+    description: Create a finished task by manually entering hours and minutes.
+    files:
+      - src/features/task-form/pages/TaskFormPage.tsx
+      - src/features/task-form/store/task-form-store.ts
+      - src/application/task/task-use-cases.ts
+      - src/domain/services/task-validator.ts
+    entry_route: /
+    user_interactions:
+      - Click "+" to open "Nova tarefa" modal
+      - Fill "Nome da tarefa"
+      - Optionally select a project (or keep "Sem projeto")
+      - Select "Manual" mode and enter "Horas" and/or "Minutos"
+      - Click "Salvar tarefa" and see the task added to the list
+      - Validation blocks save when name is empty or duration is zero
+    api_calls: []
+    auth_required: false
+  - name: Create timer task (start, pause, resume, finalize)
+    description: Track time using a single active timer, with pause/resume and finalize.
+    files:
+      - src/features/task-form/pages/TaskFormPage.tsx
+      - src/features/task-form/store/task-form-store.ts
+      - src/domain/services/timer-service.ts
+      - src/data/repositories/timer-interval-repository.ts
+      - src/data/repositories/task-repository.ts
+    entry_route: /
+    user_interactions:
+      - Click "+" to open "Nova tarefa" modal
+      - Fill "Nome da tarefa" and select "Timer" mode
+      - Click "Iniciar", wait a few seconds, then click "Pausar"
+      - Click "Retomar" to resume
+      - Click "Finalizar" to finish and persist a non-zero duration
+      - App prevents multiple timers from running at the same time
+    api_calls: []
+    auth_required: false
+  - name: Project management (create, rename, remove)
+    description: Manage projects used to categorize tasks; removed projects are soft-deleted.
+    files:
+      - src/features/projects/pages/ProjectsPage.tsx
+      - src/application/project/project-use-cases.ts
+      - src/data/repositories/project-repository.ts
+      - src/features/task-form/store/task-form-store.ts
+    entry_route: /
+    user_interactions:
+      - Click "Projetos" in sidebar
+      - Create a project via "Novo projeto" and "Adicionar projeto"
+      - Rename a project via "Renomear" modal and save
+      - Remove a project via "Remover" and confirm (soft-delete)
+      - Removed projects are not selectable when creating new tasks
+      - Validation blocks empty names and duplicate names (case-insensitive, trimmed)
+    api_calls: []
+    auth_required: false
+known_limitations:
+  - issue: No URL-based routing; navigation is internal state only.
+    location: src/app/App.tsx
+    impact: Cannot deep-link directly to "Tarefas" vs "Projetos" via URL.
+  - issue: Data persistence is browser localStorage only (no backend).
+    location: src/data/storage/storage.ts
+    impact: Data is device/browser-specific and not shared across users.

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { useTaskFormStore, getProjectName } from "../store/task-form-store";
 import { secondsToClock, secondsToHoursMinutes, formatDateLabel } from "../../../shared/utils/time";
@@ -41,10 +41,12 @@ export function TaskFormPage() {
     pauseTimer,
     stopTimer,
     tickTimer,
+    deleteTask,
     clearToast,
     refreshTasks,
     refreshReport,
   } = useTaskFormStore();
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
 
   useEffect(() => {
     initialize();
@@ -140,9 +142,9 @@ export function TaskFormPage() {
           >
             <option value="">Todos</option>
             <option value="none">Sem projeto</option>
-            {projects.map((project) => (
+            {activeProjects.map((project) => (
               <option key={project.id} value={project.id}>
-                {project.status === "deleted" ? `${project.name} (removido)` : project.name}
+                {project.name}
               </option>
             ))}
           </select>
@@ -173,9 +175,18 @@ export function TaskFormPage() {
                   {getProjectName(projects, task.projectId)} · {formatDateLabel(task.loggedAt ?? task.startAt ?? task.createdAt)}
                 </div>
               </div>
-              <span className="task-list__duration">
-                {task.durationSeconds > 0 ? secondsToHoursMinutes(task.durationSeconds) : "00:00"}
-              </span>
+              <div className="task-list__right">
+                <span className="task-list__duration">
+                  {task.durationSeconds > 0 ? secondsToHoursMinutes(task.durationSeconds) : "00:00"}
+                </span>
+                <button
+                  type="button"
+                  className="button button--danger button--compact"
+                  onClick={() => setDeleteTarget({ id: task.id, name: task.name })}
+                >
+                  Excluir
+                </button>
+              </div>
             </li>
           ))}
         </ul>
@@ -369,6 +380,35 @@ export function TaskFormPage() {
                 </button>
               </footer>
             </form>
+          </div>
+        </div>
+      ) : null}
+
+      {deleteTarget ? (
+        <div className="modal" role="dialog" aria-modal="true" aria-labelledby="deleteTaskTitle">
+          <div className="modal__overlay" onClick={() => setDeleteTarget(null)} />
+          <div className="modal__content">
+            <header className="modal__header">
+              <div>
+                <h2 id="deleteTaskTitle">Excluir tarefa</h2>
+                <p>Deseja excluir a tarefa "{deleteTarget.name}"? Essa acao nao pode ser desfeita.</p>
+              </div>
+            </header>
+            <div className="project-actions">
+              <button
+                type="button"
+                className="button button--primary"
+                onClick={() => {
+                  void deleteTask(deleteTarget.id);
+                  setDeleteTarget(null);
+                }}
+              >
+                Confirmar
+              </button>
+              <button type="button" className="button button--ghost" onClick={() => setDeleteTarget(null)}>
+                Cancelar
+              </button>
+            </div>
           </div>
         </div>
       ) : null}

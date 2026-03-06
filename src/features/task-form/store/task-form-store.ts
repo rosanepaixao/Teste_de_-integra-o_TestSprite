@@ -79,6 +79,7 @@ interface TaskFormState {
   createProject: (name: string) => Promise<void>;
   renameProject: (projectId: string, name: string) => Promise<void>;
   deleteProject: (projectId: string) => Promise<void>;
+  deleteTask: (taskId: string) => Promise<void>;
   submitManualTask: () => Promise<void>;
   startTimer: () => Promise<void>;
   pauseTimer: () => Promise<void>;
@@ -156,6 +157,24 @@ export const useTaskFormStore = create<TaskFormState>((set, get) => ({
       get().setToast("Projeto removido.");
     } catch (error) {
       set({ projectError: error instanceof Error ? error.message : "Erro ao remover." });
+    }
+  },
+  deleteTask: async (taskId) => {
+    try {
+      await taskUseCases.delete(taskId);
+
+      if (get().currentTimerTaskId === taskId) {
+        set({ timerStatus: "stopped", elapsedSeconds: 0, currentTimerTaskId: null });
+      }
+
+      await get().refreshTasks();
+      await get().refreshReport();
+      get().setToast("Tarefa excluida.");
+    } catch (error) {
+      get().setToast(
+        error instanceof Error ? error.message : "Erro ao excluir tarefa.",
+        "error",
+      );
     }
   },
   submitManualTask: async () => {

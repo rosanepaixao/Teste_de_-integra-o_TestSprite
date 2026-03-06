@@ -4,6 +4,7 @@ import { useTaskFormStore } from "../../task-form/store/task-form-store";
 export function ProjectsPage() {
   const { projects, projectError, createProject, renameProject, deleteProject, refreshProjects } =
     useTaskFormStore();
+  const activeProjects = projects.filter((project) => project.status === "active");
   const [renameTarget, setRenameTarget] = useState<{ id: string; name: string } | null>(null);
   const [renameValue, setRenameValue] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
@@ -53,20 +54,16 @@ export function ProjectsPage() {
         </form>
 
         <ul className="project-list" aria-live="polite">
-          {projects.length === 0 ? (
+          {activeProjects.length === 0 ? (
             <li className="project-list__empty">Nenhum projeto cadastrado ainda.</li>
           ) : (
-            projects.map((project) => (
+            activeProjects.map((project) => (
               <li className="project-list__item" key={project.id}>
                 <div className="project-list__name">{project.name}</div>
-                {project.status === "deleted" ? (
-                  <span className="project-status project-status--deleted">Removido</span>
-                ) : null}
                 <div className="project-actions">
                   <button
                     type="button"
                     className="button"
-                    disabled={project.status === "deleted"}
                     onClick={() => {
                       setRenameTarget({ id: project.id, name: project.name });
                       setRenameValue(project.name);
@@ -77,7 +74,6 @@ export function ProjectsPage() {
                   <button
                     type="button"
                     className="button button--ghost"
-                    disabled={project.status === "deleted"}
                     onClick={() => setDeleteTarget({ id: project.id, name: project.name })}
                   >
                     Remover
