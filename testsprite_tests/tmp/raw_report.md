@@ -5,215 +5,262 @@
 
 ## 1️⃣ Document Metadata
 - **Project Name:** time-tracker
-- **Date:** 2026-02-27
+- **Date:** 2026-05-21
 - **Prepared by:** TestSprite AI Team
 
 ---
 
 ## 2️⃣ Requirement Validation Summary
 
-#### Test TC001 View recent tasks list and summary cards on Tarefas page
-- **Test Code:** [TC001_View_recent_tasks_list_and_summary_cards_on_Tarefas_page.py](./TC001_View_recent_tasks_list_and_summary_cards_on_Tarefas_page.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/5efcb033-5f57-491c-af8d-bf222d821584
+#### Test TC001 Save a manual task and see it in history
+- **Test Code:** [TC001_Save_a_manual_task_and_see_it_in_history.py](./TC001_Save_a_manual_task_and_see_it_in_history.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — no way to open the new-task dialog from the UI was available.
+
+Observations:
+- The page shows 'Nenhuma tarefa registrada no periodo.' and a floating add icon is visible in the screenshot, but no corresponding interactive element for adding a task was present in the page's interactive elements list.
+- The interactive elements inspected (indices 3, 8, 10, 11, 12, 13) do not include any control to create or submit a new task.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/451a7c2e-2ced-406b-9856-21fcd5763e4e
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC002 Log a manual task and see it counted in the summary
+- **Test Code:** [TC002_Log_a_manual_task_and_see_it_counted_in_the_summary.py](./TC002_Log_a_manual_task_and_see_it_counted_in_the_summary.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — the UI provides no visible control to create a new task.
+
+Observations:
+- The Tasks page is visible and shows "Nenhuma tarefa registrada no periodo." but no Add/New/+ button is present.
+- The page interactive elements list contains date filters, project filter, and a "Limpar filtros" button but no create-task control.
+
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/2be4328d-0109-4126-8f44-8f367a130757
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC003 Start, pause, resume, and stop a timer task
+- **Test Code:** [TC003_Start_pause_resume_and_stop_a_timer_task.py](./TC003_Start_pause_resume_and_stop_a_timer_task.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — the UI provides no accessible way to open the new-task (timer) dialog required to perform the pause/resume/stop workflow.
+
+Observations:
+- The page DOM exposes only filter and navigation controls (date inputs, project select, 'Limpar filtros') and no interactive element for the floating '+' add button shown in the screenshot.
+- Clicking available buttons (element index 3) only reselected the 'Tarefas' view and did not open any dialog or form to create a task.
+- Without a way to create/start a timer task through the visible interactive elements, the pause/resume/stop scenario cannot be executed.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/787e0adb-b99a-4e86-a7cb-d8ad9c8434e4
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC004 Create a timer task and finish it from the running state
+- **Test Code:** [TC004_Create_a_timer_task_and_finish_it_from_the_running_state.py](./TC004_Create_a_timer_task_and_finish_it_from_the_running_state.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — no accessible control exists to create or start a timer task on the Time Tracker page.
+
+Observations:
+- The page loaded and shows the tasks view, but no 'create task' or 'start timer' button is available as an interactive element.
+- The UI indicates "Nenhuma tarefa registrada no periodo." and there is no visible way to add a timed task from the available interactive elements.
+
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/6c40d669-e44c-4c17-ad6b-076aa5319bd5
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC005 Delete a task from history
+- **Test Code:** [TC005_Delete_a_task_from_history.py](./TC005_Delete_a_task_from_history.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — the UI provides no way to create or select a task to delete.
+
+Observations:
+- The tasks list displays 'Nenhuma tarefa registrada no periodo.' (no tasks in the period).
+- No button or control to add a new task was present among the page's interactive elements.
+- Only filter controls (date inputs and project select) and filter/section buttons are available; no task entries or delete controls were visible.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/2bdce819-0021-4b5b-9e8a-fc477406367e
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC006 Save a manual task with a project
+- **Test Code:** [TC006_Save_a_manual_task_with_a_project.py](./TC006_Save_a_manual_task_with_a_project.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/c7391fb7-fb86-41b0-9e1a-4c1a8c755551
 - **Status:** ✅ Passed
 - **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
 ---
 
-#### Test TC002 Filter tasks by valid date range and clear filters
-- **Test Code:** [TC002_Filter_tasks_by_valid_date_range_and_clear_filters.py](./TC002_Filter_tasks_by_valid_date_range_and_clear_filters.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/28351651-1d5d-44e7-a692-b81a64c32d86
+#### Test TC007 Create a project and use it on a new task
+- **Test Code:** [TC007_Create_a_project_and_use_it_on_a_new_task.py](./TC007_Create_a_project_and_use_it_on_a_new_task.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/02752bf0-bf47-4544-ac1e-e643894501c7
 - **Status:** ✅ Passed
 - **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
 ---
 
-#### Test TC003 Filter tasks by project = Todos
-- **Test Code:** [TC003_Filter_tasks_by_project__Todos.py](./TC003_Filter_tasks_by_project__Todos.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/509eaef3-ec4d-40e4-99b6-8c30a7d7b179
+#### Test TC008 Filter task history by project and date range
+- **Test Code:** [TC008_Filter_task_history_by_project_and_date_range.py](./TC008_Filter_task_history_by_project_and_date_range.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/ebc56c73-92f8-4458-8566-eb81fc3ebca9
 - **Status:** ✅ Passed
 - **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
 ---
 
-#### Test TC004 Filter tasks by project = Sem projeto
-- **Test Code:** [TC004_Filter_tasks_by_project__Sem_projeto.py](./TC004_Filter_tasks_by_project__Sem_projeto.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/85f1db9b-838a-4827-b2a3-7fc26e2a0647
+#### Test TC009 Create a project and see it available for task assignment
+- **Test Code:** [TC009_Create_a_project_and_see_it_available_for_task_assignment.py](./TC009_Create_a_project_and_see_it_available_for_task_assignment.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/f0ea5542-cbd6-489b-906f-67afa54893ed
 - **Status:** ✅ Passed
 - **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
 ---
 
-#### Test TC005 Filter tasks by a specific project (when available)
-- **Test Code:** [TC005_Filter_tasks_by_a_specific_project_when_available.py](./TC005_Filter_tasks_by_a_specific_project_when_available.py)
+#### Test TC010 View tasks with no project using the project filter
+- **Test Code:** [TC010_View_tasks_with_no_project_using_the_project_filter.py](./TC010_View_tasks_with_no_project_using_the_project_filter.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/37c4062b-7b49-440e-bb31-a8121490ac35
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC011 Show only unassigned tasks with the Sem projeto filter
+- **Test Code:** [TC011_Show_only_unassigned_tasks_with_the_Sem_projeto_filter.py](./TC011_Show_only_unassigned_tasks_with_the_Sem_projeto_filter.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — there are no tasks available to verify the 'Sem projeto' filter, and the UI provides no visible control to create tasks.
+
+Observations:
+- The page displays 'Nenhuma tarefa registrada no periodo.'
+- No 'add task' or similar control was found on the page to create test data
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/55c9685c-4b65-4e5d-8905-0fa2554590f1
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC012 Assign a project to a new task and keep it in history
+- **Test Code:** [TC012_Assign_a_project_to_a_new_task_and_keep_it_in_history.py](./TC012_Assign_a_project_to_a_new_task_and_keep_it_in_history.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/a7cfce69-2305-4272-bb4b-a9d56f8db9d1
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC013 Clear task filters and restore the full history
+- **Test Code:** [TC013_Clear_task_filters_and_restore_the_full_history.py](./TC013_Clear_task_filters_and_restore_the_full_history.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/52ae1ab4-5069-40b3-ba44-686df9b0d29f
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC014 Show running and paused timer states
+- **Test Code:** [TC014_Show_running_and_paused_timer_states.py](./TC014_Show_running_and_paused_timer_states.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — the UI provides no way to create a new task so the timer functionality cannot be exercised.
+
+Observations:
+- No interactive 'add task' or 'new task' button/control is present in the page's interactive element list.
+- The page shows "Nenhuma tarefa registrada no periodo." and a floating "+" is visible in the screenshot, but that control is not listed as an interactive element and cannot be activated by the test.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/f2f950d0-150e-4dc6-b310-1f49682e5ddb
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC015 Rename a project and see the updated name reflected
+- **Test Code:** [TC015_Rename_a_project_and_see_the_updated_name_reflected.py](./TC015_Rename_a_project_and_see_the_updated_name_reflected.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/2e9b9648-47cf-472b-8ccf-fb29f0ba76e8
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC016 Rename a project and keep historical tasks linked
+- **Test Code:** [TC016_Rename_a_project_and_keep_historical_tasks_linked.py](./TC016_Rename_a_project_and_keep_historical_tasks_linked.py)
+- **Test Error:** TEST BLOCKED
+
+A task could not be created — the Tasks view provides no visible control to add a new task, so the historical-association part of the test cannot be completed.
+
+Observations:
+- The Tasks page only shows date filters, a project dropdown, and a "Limpar filtros" button; no "Adicionar tarefa" or visible add (+) control is present among the interactive elements.
+- The interactive elements list contains only filters (date inputs and project select) and no add-task button, so a prerequisite task cannot be created through the UI.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/c4d458b1-e0b1-4b2f-8ffd-3789c4989d06
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC017 Show validation when manual task name is missing
+- **Test Code:** [TC017_Show_validation_when_manual_task_name_is_missing.py](./TC017_Show_validation_when_manual_task_name_is_missing.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — the UI provides no accessible way to open the new task dialog required to create a manual task.
+
+Observations:
+- The page shows no interactive 'Add task' or '+' button in the interactive elements list.
+- No form or controls for creating a new task are present among the available interactive elements.
+- A floating '+' is visible in the screenshot but it is not exposed as an interactive element in the DOM listing, so it cannot be clicked by the test.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/1e9e11b6-a2cd-4371-a1b3-a84632a3b62b
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC018 Handle invalid manual task input before saving
+- **Test Code:** [TC018_Handle_invalid_manual_task_input_before_saving.py](./TC018_Handle_invalid_manual_task_input_before_saving.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — the UI provides no way to create a new task from the Tasks page, so manual-time task validation cannot be exercised.
+
+Observations:
+- No Add / + / "New Task" control is present in the interactive elements for the Tasks page.
+- The page only shows filter controls (date range, project) and the message 'Nenhuma tarefa registrada no periodo.' with no visible create task dialog or button to open one.
+
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/7f1ba2d7-12f9-4bf7-9efb-dbe929798635
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC019 Show validation when manual duration is zero
+- **Test Code:** [TC019_Show_validation_when_manual_duration_is_zero.py](./TC019_Show_validation_when_manual_duration_is_zero.py)
+- **Test Error:** TEST BLOCKED
+
+The test could not be run — the UI control to create a new task is not reachable from the interactive elements provided.
+
+Observations:
+- The floating 'add new task' (+) button is visible in the page screenshot but is not present among the page's interactive elements.
+- The interactive buttons on the page are indexes 3 (Tarefas), 11 (Projetos), 12 (De), and 13 (Limpar filtros); none open a new task dialog.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/3d26174c-00f9-404d-88d0-b585fcf153d0
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC020 Soft-delete a project without losing historical task labels
+- **Test Code:** [TC020_Soft_delete_a_project_without_losing_historical_task_labels.py](./TC020_Soft_delete_a_project_without_losing_historical_task_labels.py)
 - **Test Error:** TEST FAILURE
 
-ASSERTIONS:
-- Specific project option not found in project filter dropdown; only 'Todos' and 'Sem projeto' options are available.
-- Cannot select a specific project to verify that the tasks list updates because no specific project option exists.
-- Cannot verify that selecting a specific project keeps summary cards (Horas totais / Tarefas no periodo) visible due to the missing filter option.
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/0824d904-8748-4221-a5d1-e17ee33d8475
+Soft-deleting the project did not remove it from the active project selection, although historical tasks still show the project label.
+
+Observations:
+- The project filter dropdown still includes 'Projeto SoftDelete 1' after clicking 'Remover'.
+- The task list shows 'Tarefa SoftDelete 1' with the project label 'Projeto SoftDelete 1'.
+- The UI did not reflect the project as removed from active selections after the removal action.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/75c02b79-5178-445c-a64d-e1b00a5c2b7c
 - **Status:** ❌ Failed
 - **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
 ---
 
-#### Test TC006 Combine date range and project filter together
-- **Test Code:** [TC006_Combine_date_range_and_project_filter_together.py](./TC006_Combine_date_range_and_project_filter_together.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/c990b8fd-2de0-4c6b-a171-ba9360d3a2c6
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC007 Delete a task via Excluir and confirm deletion updates summary cards
-- **Test Code:** [TC007_Delete_a_task_via_Excluir_and_confirm_deletion_updates_summary_cards.py](./TC007_Delete_a_task_via_Excluir_and_confirm_deletion_updates_summary_cards.py)
+#### Test TC021 Soft-delete a project while keeping historical task associations
+- **Test Code:** [TC021_Soft_delete_a_project_while_keeping_historical_task_associations.py](./TC021_Soft_delete_a_project_while_keeping_historical_task_associations.py)
 - **Test Error:** TEST FAILURE
 
-ASSERTIONS:
-- No task entries found: 'Nenhuma tarefa registrada no periodo.' message is displayed
-- Delete button ('Excluir') not present on any task row
-- Cannot open delete confirmation modal because there are no tasks to delete
-- Required summary texts 'Horas totais' and 'Tarefas no periodo' not visible on page
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/356df013-8455-426d-a288-5f2efa89c548
+The project could not be removed — the 'Remover' button did not delete the project from the active list after multiple attempts.
+
+Observations:
+- The Projects list and the project filter dropdown still show 'Cliente Alfa'.
+- Clicking 'Remover' did not change the UI; the project remained visible and no confirmation or error message appeared.
+- The historical task 'Reunião com Cliente Alfa' still displays the project label 'Cliente Alfa'.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/f69d2c10-0f36-4a7c-a047-00cd7ceb7568
 - **Status:** ❌ Failed
 - **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
 ---
 
-#### Test TC008 Cancel task deletion from confirmation modal
-- **Test Code:** [TC008_Cancel_task_deletion_from_confirmation_modal.py](./TC008_Cancel_task_deletion_from_confirmation_modal.py)
-- **Test Error:** TEST FAILURE
-
-ASSERTIONS:
-- No task rows are present on the Tarefas page; the recent tasks list shows the message 'Nenhuma tarefa registrada no periodo.'
-- No 'Excluir' (delete) button is available because there are no task entries to act on.
-- The delete confirmation modal cannot be displayed because the deletion action cannot be initiated.
-- The required behavior (canceling deletion and keeping the task list visible) cannot be validated due to the absence of the deletion flow.
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/8cdabd21-c4fa-48b1-9bf7-cbe39f611e1a
-- **Status:** ❌ Failed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC009 Invalid date range shows user-facing validation and does not apply filters
-- **Test Code:** [TC009_Invalid_date_range_shows_user_facing_validation_and_does_not_apply_filters.py](./TC009_Invalid_date_range_shows_user_facing_validation_and_does_not_apply_filters.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/abdb808a-1336-408c-a321-39a071bfaa40
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC010 Create a completed manual task with project and verify list + totals update
-- **Test Code:** [TC010_Create_a_completed_manual_task_with_project_and_verify_list__totals_update.py](./TC010_Create_a_completed_manual_task_with_project_and_verify_list__totals_update.py)
-- **Test Error:** TEST FAILURE
-
-ASSERTIONS:
-- Project option 'Cliente A' not found in project dropdown (available options appear to be: 'Sem projeto', 'Nenhum projeto ativo').
-- Cannot assign the task to the requested optional project because the project is not present in the dropdown.
-- Because the requested project assignment is unavailable, the test cannot continue to fully verify creating a finished task with an optional project and the subsequent updates to the task list and total hours.
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/e5961c12-e285-4473-a26d-f448ea78c0c7
-- **Status:** ❌ Failed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC011 Create a completed manual task without selecting a project (Sem projeto)
-- **Test Code:** [TC011_Create_a_completed_manual_task_without_selecting_a_project_Sem_projeto.py](./TC011_Create_a_completed_manual_task_without_selecting_a_project_Sem_projeto.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/2c185a1f-7ef5-4108-9dbe-37cfd87af5e5
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC012 Validation: cannot save manual task when name is empty
-- **Test Code:** [TC012_Validation_cannot_save_manual_task_when_name_is_empty.py](./TC012_Validation_cannot_save_manual_task_when_name_is_empty.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/afeb4d22-d91e-4ca4-8096-aac72d10c2b1
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC013 Validation: cannot save manual task when duration is 0 hours and 0 minutes
-- **Test Code:** [TC013_Validation_cannot_save_manual_task_when_duration_is_0_hours_and_0_minutes.py](./TC013_Validation_cannot_save_manual_task_when_duration_is_0_hours_and_0_minutes.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/604a47c9-04f6-4fd3-ad84-e571fd55815e
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC014 Manual task with minutes only (no hours) saves and formats duration correctly
-- **Test Code:** [TC014_Manual_task_with_minutes_only_no_hours_saves_and_formats_duration_correctly.py](./TC014_Manual_task_with_minutes_only_no_hours_saves_and_formats_duration_correctly.py)
-- **Test Error:** TEST FAILURE
-
-ASSERTIONS:
-- Add/new task button ('+') not found on page
-- 'Nova tarefa' modal could not be opened because no add-task control exists
-- Unable to verify that entering only minutes creates a finished task and displays duration in HH:MM format because the task creation UI was not accessible
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/c0d9e89b-f427-4a6f-b6a4-2384493788bf
-- **Status:** ❌ Failed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC015 Manual task with hours only (no minutes) saves and formats duration correctly
-- **Test Code:** [TC015_Manual_task_with_hours_only_no_minutes_saves_and_formats_duration_correctly.py](./TC015_Manual_task_with_hours_only_no_minutes_saves_and_formats_duration_correctly.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/670a9828-f151-46aa-83f6-fc2b0104e78c
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC016 Cancel/close modal does not create a task
-- **Test Code:** [TC016_Cancelclose_modal_does_not_create_a_task.py](./TC016_Cancelclose_modal_does_not_create_a_task.py)
-- **Test Error:** TEST FAILURE
-
-ASSERTIONS:
-- ASSERTION: Add ('+') button to open the "Nova tarefa" modal not found on page; interactive elements inspected do not include a control to create a new task.
-- ASSERTION: Unable to open the "Nova tarefa" modal, so it is impossible to verify that closing the modal without saving does not add a task.
-- ASSERTION: No alternative UI element to create a task (e.g., 'Adicionar', 'Nova tarefa') was found on the current page, preventing completion of the test.
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/0cfa1dc5-69dc-4458-9565-64236b7a28e2
-- **Status:** ❌ Failed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC017 Finalize immediately after start still results in a persisted task
-- **Test Code:** [TC017_Finalize_immediately_after_start_still_results_in_a_persisted_task.py](./TC017_Finalize_immediately_after_start_still_results_in_a_persisted_task.py)
-- **Test Error:** TEST FAILURE
-
-ASSERTIONS:
-- Finalizar button not found on page as an interactive element (no element index present for 'Finalizar' in modal).
-- Clicking element index 317 failed because the element index was not available in the current page state.
-- After clicking 'Salvar tarefa' earlier, the task 'Timer rápido' and the status 'Finalizada' are not present in the task list (search returned no matches).
-- The modal remained open after saving, preventing confirmation that the task was finalized.
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/589f9f7e-8cd9-4db6-8a9a-82fbabeffa7d
-- **Status:** ❌ Failed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC018 Validation: cannot start timer without task name
-- **Test Code:** [TC018_Validation_cannot_start_timer_without_task_name.py](./TC018_Validation_cannot_start_timer_without_task_name.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/254c688b-d6a2-4309-899d-32ccbcf8c83a
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC019 Cancel/close new task modal does not create a task
-- **Test Code:** [TC019_Cancelclose_new_task_modal_does_not_create_a_task.py](./TC019_Cancelclose_new_task_modal_does_not_create_a_task.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/2bd4ef6b-66f8-42ce-a68e-2f10e8cab3e0
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC020 Create a new project and verify it is selectable in 'Nova tarefa'
-- **Test Code:** [TC020_Create_a_new_project_and_verify_it_is_selectable_in_Nova_tarefa.py](./TC020_Create_a_new_project_and_verify_it_is_selectable_in_Nova_tarefa.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/00146cde-61ae-499f-a006-d89cd719a2ea
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC021 Prevent creating a duplicate project name (case-insensitive)
-- **Test Code:** [TC021_Prevent_creating_a_duplicate_project_name_case_insensitive.py](./TC021_Prevent_creating_a_duplicate_project_name_case_insensitive.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/f1fae8be-754c-48e6-be3f-ffe2e142e72e
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC022 Prevent creating a duplicate project name when extra spaces are used (trim validation)
-- **Test Code:** [TC022_Prevent_creating_a_duplicate_project_name_when_extra_spaces_are_used_trim_validation.py](./TC022_Prevent_creating_a_duplicate_project_name_when_extra_spaces_are_used_trim_validation.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/470c6d1c-8c1a-4a7a-96cb-354c89f15257
-- **Status:** ✅ Passed
-- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
----
-
-#### Test TC023 Require project name when creating a new project
-- **Test Code:** [TC023_Require_project_name_when_creating_a_new_project.py](./TC023_Require_project_name_when_creating_a_new_project.py)
-- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/03038b6b-593d-450e-8907-5e4cd8c1a856/6d6377f6-5d38-4d09-b831-67d96585fb15
+#### Test TC022 Handle the empty task history state
+- **Test Code:** [TC022_Handle_the_empty_task_history_state.py](./TC022_Handle_the_empty_task_history_state.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/d3fb4eea-165b-4c87-b995-9c0a0589c4c2/86945e2a-90a2-46f5-850b-e350ef17ea98
 - **Status:** ✅ Passed
 - **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
 ---
@@ -221,7 +268,7 @@ ASSERTIONS:
 
 ## 3️⃣ Coverage & Matching Metrics
 
-- **69.57** of tests passed
+- **40.91** of tests passed
 
 | Requirement        | Total Tests | ✅ Passed | ❌ Failed  |
 |--------------------|-------------|-----------|------------|

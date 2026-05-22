@@ -1,10 +1,9 @@
 [
   {
     "id": "TC001",
-    "title": "View recent tasks list and summary cards on Tarefas page",
-    "description": "Verifies the Tarefas page renders the recent tasks list and the summary cards are visible.",
-    "category": "Task list, filters, and report summary",
-    "priority": "High",
+    "title": "Save a manual task and see it in history",
+    "description": "Verifies that a user can create a finished task with manual duration and see it added to task history with updated summary totals.",
+    "category": "Create manual task",
     "steps": [
       {
         "type": "action",
@@ -12,28 +11,44 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
+        "description": "Open the new task dialog"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the task name with a unique value"
+      },
+      {
+        "type": "action",
+        "description": "Choose manual time entry mode"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid number of hours"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid number of minutes"
+      },
+      {
+        "type": "action",
+        "description": "Submit the task form"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Verify the new finished task appears in task history"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Tarefas no periodo\" is visible"
+        "description": "Verify the summary totals update for the selected period"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC002",
-    "title": "Filter tasks by valid date range and clear filters",
-    "description": "Verifies that applying a valid De/Ate range updates the list and summary cards, and clearing filters resets them.",
-    "category": "Task list, filters, and report summary",
-    "priority": "High",
+    "title": "Log a manual task and see it counted in the summary",
+    "description": "This verifies a user can create a finished task with manual time and see it appear in history with the summary cards updated for the selected period.",
+    "category": "Reports summary",
     "steps": [
       {
         "type": "action",
@@ -41,40 +56,44 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
+        "description": "Create a new task in manual time mode"
       },
       {
         "type": "action",
-        "description": "Type \"2026-02-01\" into the \"De\" date filter field"
+        "description": "Fill in a unique task name"
       },
       {
         "type": "action",
-        "description": "Type \"2026-02-21\" into the \"Ate\" date filter field"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
+        "description": "Select manual time entry"
       },
       {
         "type": "action",
-        "description": "Click \"Limpar filtros\""
+        "description": "Fill in a valid number of hours"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid number of minutes"
+      },
+      {
+        "type": "action",
+        "description": "Save the task"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
+        "description": "Verify the new task appears in history"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the total hours and task count summary update for the selected period"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC003",
-    "title": "Filter tasks by project = Todos",
-    "description": "Verifies selecting the project filter \"Todos\" keeps the list available and summary cards visible.",
-    "category": "Task list, filters, and report summary",
-    "priority": "Medium",
+    "title": "Start, pause, resume, and stop a timer task",
+    "description": "Verifies that a timer-based task can be paused and resumed before stopping, and that the saved task is finalized with elapsed time.",
+    "category": "Timer task",
     "steps": [
       {
         "type": "action",
@@ -82,32 +101,48 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
+        "description": "Open the new task dialog"
       },
       {
         "type": "action",
-        "description": "Select \"Todos\" from the project filter dropdown"
+        "description": "Fill in the task name with a unique value"
+      },
+      {
+        "type": "action",
+        "description": "Choose timer mode"
+      },
+      {
+        "type": "action",
+        "description": "Start the timer"
+      },
+      {
+        "type": "action",
+        "description": "Pause the timer"
+      },
+      {
+        "type": "action",
+        "description": "Resume the timer"
+      },
+      {
+        "type": "action",
+        "description": "Stop the timer"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Verify the task is saved as finished"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Tarefas no periodo\" is visible"
+        "description": "Verify the saved duration is displayed in history"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC004",
-    "title": "Filter tasks by project = Sem projeto",
-    "description": "Verifies selecting the project filter \"Sem projeto\" updates the view without breaking list rendering and keeps summary cards visible.",
-    "category": "Task list, filters, and report summary",
-    "priority": "Medium",
+    "title": "Create a timer task and finish it from the running state",
+    "description": "This verifies a user can start, pause, resume, and stop a live timer task and have the completed elapsed time saved in history.",
+    "category": "Reports summary",
     "steps": [
       {
         "type": "action",
@@ -115,32 +150,44 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
+        "description": "Create a new task in timer mode"
       },
       {
         "type": "action",
-        "description": "Select \"Sem projeto\" from the project filter dropdown"
+        "description": "Fill in a unique task name"
+      },
+      {
+        "type": "action",
+        "description": "Start the timer"
+      },
+      {
+        "type": "action",
+        "description": "Pause the timer"
+      },
+      {
+        "type": "action",
+        "description": "Resume the timer"
+      },
+      {
+        "type": "action",
+        "description": "Stop the timer and save the task"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Verify the task appears as completed in history"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Tarefas no periodo\" is visible"
+        "description": "Verify the saved duration is shown in the task entry"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC005",
-    "title": "Filter tasks by a specific project (when available)",
-    "description": "Verifies selecting a specific project filter option (if present) updates the list and keeps summary cards visible.",
-    "category": "Task list, filters, and report summary",
-    "priority": "Medium",
+    "title": "Delete a task from history",
+    "description": "Verifies that a user can delete a task from the history list and it is removed after confirmation.",
+    "category": "Task list and filters",
     "steps": [
       {
         "type": "action",
@@ -148,36 +195,28 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
+        "description": "Choose a task in the history"
       },
       {
         "type": "action",
-        "description": "Click the project filter dropdown"
+        "description": "Delete the task"
       },
       {
         "type": "action",
-        "description": "Select the first specific project option that is not \"Todos\" and not \"Sem projeto\""
+        "description": "Confirm the deletion"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Tarefas no periodo\" is visible"
+        "description": "Verify the task is removed from history"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC006",
-    "title": "Combine date range and project filter together",
-    "description": "Verifies using both date filters and a project filter together still renders results and summary cards without errors.",
-    "category": "Task list, filters, and report summary",
-    "priority": "High",
+    "title": "Save a manual task with a project",
+    "description": "Verifies that a user can create a finished manual task assigned to a project and see the project association in history.",
+    "category": "Create manual task",
     "steps": [
       {
         "type": "action",
@@ -185,36 +224,48 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
+        "description": "Open the new task dialog"
       },
       {
         "type": "action",
-        "description": "Type \"2026-02-01\" into the \"De\" date filter field"
+        "description": "Fill in the task name with a unique value"
       },
       {
         "type": "action",
-        "description": "Type \"2026-02-21\" into the \"Ate\" date filter field"
+        "description": "Select an active project"
       },
       {
         "type": "action",
-        "description": "Select \"Todos\" from the project filter dropdown"
+        "description": "Choose manual time entry mode"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid number of hours"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid number of minutes"
+      },
+      {
+        "type": "action",
+        "description": "Submit the task form"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Verify the new task appears in history"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Tarefas no periodo\" is visible"
+        "description": "Verify the task shows the selected project association"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC007",
-    "title": "Delete a task via Excluir and confirm deletion updates summary cards",
-    "description": "Verifies deleting a task through the confirmation modal removes it from the list and updates the summary cards.",
-    "category": "Task list, filters, and report summary",
-    "priority": "High",
+    "title": "Create a project and use it on a new task",
+    "description": "Verifies that a user can add a project on the Projects view and then assign it to a newly created task.",
+    "category": "Project management",
     "steps": [
       {
         "type": "action",
@@ -222,40 +273,60 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Open the Projects view"
       },
       {
         "type": "action",
-        "description": "Click \"Excluir\" on the first task row in the list"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Delete confirmation modal\" is visible"
+        "description": "Add a new project with a unique name"
       },
       {
         "type": "action",
-        "description": "Click \"Confirmar\" in the modal"
+        "description": "Return to the task creation view"
+      },
+      {
+        "type": "action",
+        "description": "Open the new task dialog"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the task name with a unique value"
+      },
+      {
+        "type": "action",
+        "description": "Select the newly created project"
+      },
+      {
+        "type": "action",
+        "description": "Choose manual time entry mode"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid number of hours"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid number of minutes"
+      },
+      {
+        "type": "action",
+        "description": "Submit the task form"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
+        "description": "Verify the new task appears in history"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Tarefas no periodo\" is visible"
+        "description": "Verify the task is associated with the created project"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC008",
-    "title": "Cancel task deletion from confirmation modal",
-    "description": "Verifies canceling the deletion keeps the task list visible and no destructive action is completed.",
-    "category": "Task list, filters, and report summary",
-    "priority": "Medium",
+    "title": "Filter task history by project and date range",
+    "description": "This verifies a user can narrow task history using the date range and project filters and see the summary cards reflect the filtered period.",
+    "category": "Reports summary",
     "steps": [
       {
         "type": "action",
@@ -263,36 +334,32 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Select a date range"
       },
       {
         "type": "action",
-        "description": "Click \"Excluir\" on the first task row in the list"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Delete confirmation modal\" is visible"
+        "description": "Select a project filter"
       },
       {
         "type": "action",
-        "description": "Click \"Cancelar\" in the modal"
+        "description": "Apply the filters"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Verify the history list reflects the selected filters"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the total hours and task count summary update for the filtered period"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC009",
-    "title": "Invalid date range shows user-facing validation and does not apply filters",
-    "description": "Verifies setting De after Ate triggers a visible validation message and prevents applying the invalid filter range.",
-    "category": "Task list, filters, and report summary",
-    "priority": "High",
+    "title": "Create a project and see it available for task assignment",
+    "description": "This verifies a user can add a new project from the projects view and have it appear in the active project list for task creation.",
+    "category": "Project management",
     "steps": [
       {
         "type": "action",
@@ -300,32 +367,32 @@
       },
       {
         "type": "action",
-        "description": "Click \"Tarefas\" in the sidebar"
+        "description": "Open the projects view"
       },
       {
         "type": "action",
-        "description": "Type \"2026-02-21\" into the \"De\" date filter field"
+        "description": "Enter a unique project name"
       },
       {
         "type": "action",
-        "description": "Type \"2026-02-01\" into the \"Ate\" date filter field"
+        "description": "Add the project"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"intervalo de datas inválido\" is visible"
+        "description": "Verify the new project appears in the active project list"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Recent tasks list\" is visible"
+        "description": "Verify the project is available for selection on task creation"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC010",
-    "title": "Create a completed manual task with project and verify list + totals update",
-    "description": "Verifies a user can create a finished task using manual duration with an optional project and that the task list and total hours update.",
-    "category": "Create manual task",
-    "priority": "High",
+    "title": "View tasks with no project using the project filter",
+    "description": "This verifies a user can filter history to tasks without a project and still see the summary cards update for that selection.",
+    "category": "Reports summary",
     "steps": [
       {
         "type": "action",
@@ -333,64 +400,24 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Select the no-project filter"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Nova tarefa\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Correção de bug\" into \"Nome da tarefa\""
-      },
-      {
-        "type": "action",
-        "description": "Select \"Cliente A\" from the project dropdown"
-      },
-      {
-        "type": "action",
-        "description": "Select \"Manual\" mode"
-      },
-      {
-        "type": "action",
-        "description": "Type \"2\" into \"Horas\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"30\" into \"Minutos\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Salvar tarefa\""
+        "description": "Verify only unassigned tasks are shown in history"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Nova tarefa\" modal is not visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Correção de bug\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Finalizada\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"02:30\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Horas totais\" is visible"
+        "description": "Verify the summary cards update for the no-project selection"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC011",
-    "title": "Create a completed manual task without selecting a project (Sem projeto)",
-    "description": "Verifies a user can create a finished manual task while keeping the project unset.",
-    "category": "Create manual task",
-    "priority": "Medium",
+    "title": "Show only unassigned tasks with the Sem projeto filter",
+    "description": "Verifies that selecting the unassigned project filter shows only tasks without a project.",
+    "category": "Task list and filters",
     "steps": [
       {
         "type": "action",
@@ -398,44 +425,20 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Tarefa sem projeto\" into \"Nome da tarefa\""
-      },
-      {
-        "type": "action",
-        "description": "Select \"Manual\" mode"
-      },
-      {
-        "type": "action",
-        "description": "Type \"45\" into \"Minutos\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Salvar tarefa\""
+        "description": "Select the Sem projeto project filter"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Nova tarefa\" modal is not visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Tarefa sem projeto\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"00:45\" is visible"
+        "description": "Verify only unassigned tasks are shown"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC012",
-    "title": "Validation: cannot save manual task when name is empty",
-    "description": "Verifies the form blocks saving and shows a required-name validation message when the task name is missing.",
-    "category": "Create manual task",
-    "priority": "High",
+    "title": "Assign a project to a new task and keep it in history",
+    "description": "This verifies a user can create a task linked to a project and later see that project association preserved in task history.",
+    "category": "Project management",
     "steps": [
       {
         "type": "action",
@@ -443,40 +446,48 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Create a new project if needed"
       },
       {
         "type": "action",
-        "description": "Select \"Manual\" mode"
+        "description": "Create a new task in manual time mode"
       },
       {
         "type": "action",
-        "description": "Type \"1\" into \"Horas\""
+        "description": "Fill in a unique task name"
       },
       {
         "type": "action",
-        "description": "Click \"Salvar tarefa\""
+        "description": "Select the created project"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid number of hours"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid number of minutes"
+      },
+      {
+        "type": "action",
+        "description": "Save the task"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Nome\" is visible"
+        "description": "Verify the task appears in history with the selected project"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"obrigatório\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Nova tarefa\" is visible"
+        "description": "Verify the task is associated with the project in the history view"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC013",
-    "title": "Validation: cannot save manual task when duration is 0 hours and 0 minutes",
-    "description": "Verifies the form blocks saving and shows a validation message when manual duration is zero.",
-    "category": "Create manual task",
-    "priority": "High",
+    "title": "Clear task filters and restore the full history",
+    "description": "Verifies that clearing applied filters restores the complete task history and default summary view.",
+    "category": "Task list and filters",
     "steps": [
       {
         "type": "action",
@@ -484,48 +495,32 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Select a start date in the filter area"
       },
       {
         "type": "action",
-        "description": "Type \"Teste\" into \"Nome da tarefa\""
+        "description": "Select a project filter"
       },
       {
         "type": "action",
-        "description": "Select \"Manual\" mode"
-      },
-      {
-        "type": "action",
-        "description": "Type \"0\" into \"Horas\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"0\" into \"Minutos\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Salvar tarefa\""
+        "description": "Clear the applied filters"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"duração\" is visible"
+        "description": "Verify the full task history is shown again"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"maior que zero\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Nova tarefa\" is visible"
+        "description": "Verify the summary cards return to the unfiltered view"
       }
-    ]
+    ],
+    "priority": "High"
   },
   {
     "id": "TC014",
-    "title": "Manual task with minutes only (no hours) saves and formats duration correctly",
-    "description": "Verifies that entering only minutes creates a finished task and displays duration in HH:MM format.",
-    "category": "Create manual task",
-    "priority": "Medium",
+    "title": "Show running and paused timer states",
+    "description": "Verifies that timer state changes are reflected in the UI while a timer is running and after it is paused.",
+    "category": "Timer task",
     "steps": [
       {
         "type": "action",
@@ -533,40 +528,40 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Open the new task dialog"
       },
       {
         "type": "action",
-        "description": "Type \"Reunião rápida\" into \"Nome da tarefa\""
+        "description": "Fill in the task name with a unique value"
       },
       {
         "type": "action",
-        "description": "Select \"Manual\" mode"
+        "description": "Choose timer mode"
       },
       {
         "type": "action",
-        "description": "Type \"15\" into \"Minutos\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Salvar tarefa\""
+        "description": "Start the timer"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Reunião rápida\" is visible"
+        "description": "Verify the task is shown as running"
+      },
+      {
+        "type": "action",
+        "description": "Pause the timer"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"00:15\" is visible"
+        "description": "Verify the task is shown as paused"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC015",
-    "title": "Manual task with hours only (no minutes) saves and formats duration correctly",
-    "description": "Verifies that entering only hours creates a finished task and displays duration in HH:MM format.",
-    "category": "Create manual task",
-    "priority": "Medium",
+    "title": "Rename a project and see the updated name reflected",
+    "description": "This verifies a user can rename an existing project and see the new name in the active project list and related task context.",
+    "category": "Project management",
     "steps": [
       {
         "type": "action",
@@ -574,40 +569,36 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Open the projects view"
       },
       {
         "type": "action",
-        "description": "Type \"Planejamento\" into \"Nome da tarefa\""
+        "description": "Select an existing project to rename"
       },
       {
         "type": "action",
-        "description": "Select \"Manual\" mode"
+        "description": "Enter a new project name"
       },
       {
         "type": "action",
-        "description": "Type \"3\" into \"Horas\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Salvar tarefa\""
+        "description": "Save the project name change"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Planejamento\" is visible"
+        "description": "Verify the updated project name appears in the active project list"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"03:00\" is visible"
+        "description": "Verify tasks linked to that project show the updated association"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC016",
-    "title": "Cancel/close modal does not create a task",
-    "description": "Verifies that closing the new-task modal without saving does not add a task to the list.",
-    "category": "Create manual task",
-    "priority": "Low",
+    "title": "Rename a project and keep historical tasks linked",
+    "description": "Verifies that renaming a project updates the project name while historical tasks remain associated with that project.",
+    "category": "Project management",
     "steps": [
       {
         "type": "action",
@@ -615,40 +606,36 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Open the Projects view"
       },
       {
         "type": "action",
-        "description": "Type \"Não deve salvar\" into \"Nome da tarefa\""
+        "description": "Add a new project with a unique name"
       },
       {
         "type": "action",
-        "description": "Select \"Manual\" mode"
+        "description": "Rename the project"
       },
       {
         "type": "action",
-        "description": "Type \"10\" into \"Minutos\""
-      },
-      {
-        "type": "action",
-        "description": "Press \"Escape\""
+        "description": "Return to the task history view"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Nova tarefa\" modal is not visible"
+        "description": "Verify historical tasks retain the project association"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Não deve salvar\" is not visible"
+        "description": "Verify the renamed project is shown in the project list"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC017",
-    "title": "Finalize immediately after start still results in a persisted task",
-    "description": "Verifies a timer task can be started and immediately finalized, and it still appears in the list as finalized.",
-    "category": "Create timer task (start, pause, resume, finalize)",
-    "priority": "Medium",
+    "title": "Show validation when manual task name is missing",
+    "description": "Verifies that saving a manual task without a name is blocked and a validation message is shown.",
+    "category": "Create manual task",
     "steps": [
       {
         "type": "action",
@@ -656,40 +643,40 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Open the new task dialog"
       },
       {
         "type": "action",
-        "description": "Type \"Timer rápido\" into \"Nome da tarefa\" field"
+        "description": "Choose manual time entry mode"
       },
       {
         "type": "action",
-        "description": "Select \"Timer\" mode"
+        "description": "Enter a valid number of hours"
       },
       {
         "type": "action",
-        "description": "Click \"Iniciar\""
+        "description": "Enter a valid number of minutes"
       },
       {
         "type": "action",
-        "description": "Click \"Finalizar\""
+        "description": "Submit the task form"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Timer rápido\" is visible"
+        "description": "Verify a name validation error is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Finalizada\" is visible"
+        "description": "Verify the task is not added to history"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC018",
-    "title": "Validation: cannot start timer without task name",
-    "description": "Verifies that leaving the task name empty blocks starting a timer and shows a visible validation message.",
-    "category": "Create timer task (start, pause, resume, finalize)",
-    "priority": "High",
+    "title": "Handle invalid manual task input before saving",
+    "description": "This verifies a user sees validation when trying to save a manual task with missing or invalid time details and the task is not created.",
+    "category": "Reports summary",
     "steps": [
       {
         "type": "action",
@@ -697,36 +684,36 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Nova tarefa\" is visible"
+        "description": "Create a new task in manual time mode"
       },
       {
         "type": "action",
-        "description": "Select \"Timer\" mode"
+        "description": "Leave the task name empty"
       },
       {
         "type": "action",
-        "description": "Click \"Iniciar\""
+        "description": "Fill in an invalid duration"
+      },
+      {
+        "type": "action",
+        "description": "Save the task"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Nome da tarefa\" is visible"
+        "description": "Verify a validation error is shown"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Iniciar\" is visible"
+        "description": "Verify the task is not added to history"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC019",
-    "title": "Cancel/close new task modal does not create a task",
-    "description": "Verifies closing the \"Nova tarefa\" modal without starting does not add a new task to the list.",
-    "category": "Create timer task (start, pause, resume, finalize)",
-    "priority": "Low",
+    "title": "Show validation when manual duration is zero",
+    "description": "Verifies that saving a manual task with zero duration is blocked and a duration validation message is shown.",
+    "category": "Create manual task",
     "steps": [
       {
         "type": "action",
@@ -734,32 +721,44 @@
       },
       {
         "type": "action",
-        "description": "Click \"+\" to open \"Nova tarefa\" modal"
+        "description": "Open the new task dialog"
       },
       {
         "type": "action",
-        "description": "Type \"Não deve salvar\" into \"Nome da tarefa\" field"
+        "description": "Fill in the task name with a unique value"
       },
       {
         "type": "action",
-        "description": "Press \"Escape\""
+        "description": "Choose manual time entry mode"
+      },
+      {
+        "type": "action",
+        "description": "Enter zero hours"
+      },
+      {
+        "type": "action",
+        "description": "Enter zero minutes"
+      },
+      {
+        "type": "action",
+        "description": "Submit the task form"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Nova tarefa\" is not visible"
+        "description": "Verify a duration validation error is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Não deve salvar\" is not visible"
+        "description": "Verify the task is not added to history"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC020",
-    "title": "Create a new project and verify it is selectable in 'Nova tarefa'",
-    "description": "Creates a project from the Projetos view and confirms it appears in the task project selection.",
-    "category": "Project management (create, rename, remove)",
-    "priority": "High",
+    "title": "Soft-delete a project without losing historical task labels",
+    "description": "Verifies that soft-deleting a project removes it from active selection while historical tasks still display the project label.",
+    "category": "Project management",
     "steps": [
       {
         "type": "action",
@@ -767,40 +766,40 @@
       },
       {
         "type": "action",
-        "description": "Click \"Projetos\" in the sidebar"
+        "description": "Open the Projects view"
       },
       {
         "type": "action",
-        "description": "Click \"Novo projeto\""
+        "description": "Add a new project with a unique name"
       },
       {
         "type": "action",
-        "description": "Type \"Cliente A\" into the project name field"
+        "description": "Create a task assigned to the new project"
       },
       {
         "type": "action",
-        "description": "Click \"Adicionar projeto\""
+        "description": "Soft-delete the project"
+      },
+      {
+        "type": "action",
+        "description": "Return to the task history view"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Cliente A\" is visible in the projects list"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Nova tarefa\""
+        "description": "Verify historical tasks still show the deleted project label"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Cliente A\" is visible in the project selection options"
+        "description": "Verify the project is no longer available as an active selection"
       }
-    ]
+    ],
+    "priority": "Medium"
   },
   {
     "id": "TC021",
-    "title": "Prevent creating a duplicate project name (case-insensitive)",
-    "description": "Attempts to create a project with an existing name using different casing and verifies duplicate validation blocks creation.",
-    "category": "Project management (create, rename, remove)",
-    "priority": "High",
+    "title": "Soft-delete a project while keeping historical task associations",
+    "description": "This verifies a user can remove a project from the active list without losing the project label on previously recorded tasks.",
+    "category": "Project management",
     "steps": [
       {
         "type": "action",
@@ -808,44 +807,32 @@
       },
       {
         "type": "action",
-        "description": "Click \"Projetos\" in the sidebar"
+        "description": "Open the projects view"
       },
       {
         "type": "action",
-        "description": "Click \"Novo projeto\""
+        "description": "Select an existing project to remove"
       },
       {
         "type": "action",
-        "description": "Type \"Cliente A\" into the project name field"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Adicionar projeto\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Novo projeto\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"cliente a\" into the project name field"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Adicionar projeto\""
+        "description": "Confirm the deletion"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"já existe\" (or equivalent duplicate-name validation message) is visible"
+        "description": "Verify the project is removed from the active project list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify historical tasks still show the project association"
       }
-    ]
+    ],
+    "priority": "Low"
   },
   {
     "id": "TC022",
-    "title": "Prevent creating a duplicate project name when extra spaces are used (trim validation)",
-    "description": "Attempts to create a project with leading/trailing spaces and verifies it is treated as duplicate and not created.",
-    "category": "Project management (create, rename, remove)",
-    "priority": "Medium",
+    "title": "Handle the empty task history state",
+    "description": "Verifies that when no tasks match the current filters, the app shows an empty state instead of task rows.",
+    "category": "Task list and filters",
     "steps": [
       {
         "type": "action",
@@ -853,73 +840,21 @@
       },
       {
         "type": "action",
-        "description": "Click \"Projetos\" in the sidebar"
+        "description": "Select a date range with no matching tasks"
       },
       {
         "type": "action",
-        "description": "Click \"Novo projeto\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"Cliente A\" into the project name field"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Adicionar projeto\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Novo projeto\""
-      },
-      {
-        "type": "action",
-        "description": "Type \"  Cliente A  \" into the project name field"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Adicionar projeto\""
+        "description": "Select a project filter with no matching tasks"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"já existe\" (or equivalent duplicate-name validation message) is visible"
+        "description": "Verify an empty state message is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no task rows are displayed"
       }
-    ]
-  },
-  {
-    "id": "TC023",
-    "title": "Require project name when creating a new project",
-    "description": "Attempts to create a project with an empty name and verifies required-field validation blocks creation.",
-    "category": "Project management (create, rename, remove)",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Projetos\" in the sidebar"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Novo projeto\""
-      },
-      {
-        "type": "action",
-        "description": "Click the project name field"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Adicionar projeto\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"obrigatório\" (or equivalent required-name validation message) is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Projeto adicionado\" (or equivalent success message) is not visible"
-      }
-    ]
+    ],
+    "priority": "Low"
   }
 ]

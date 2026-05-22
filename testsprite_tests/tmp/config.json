@@ -2,17 +2,16 @@
   "status": "commited",
   "type": "frontend",
   "scope": "codebase",
-  "localEndpoint": "http://localhost:5173",
+  "localEndpoint": "http://127.0.0.1:5173/",
   "executionArgs": {
     "projectName": "time-tracker",
-    "projectPath": "/Users/attekita/Documents/GITHUB/time-tracker",
+    "projectPath": "C:\\Users\\rosan\\time-tracker",
     "testIds": [],
     "additionalInstruction": "",
-    "serverMode": "development",
+    "serverMode": "production",
     "envs": {
-      "API_KEY": "sk-user-j26mPjGLB2clLW45CaarbxC_PblMfIIGt-wPYpzoZk_8o7GjD0Aj-Kab1B0SceMkYzmBjO2BMfr5XS5lmQfXAzvwsmGJAvnOTR8U1G0WDuj9RvJfSKPxAwFNqqe3UWbfsN8"
+      "API_KEY": "sk-user-qhuGC5zCYoy2WGPUYdLwU-o65UhLFB9ralbi-i-uDfozPAuRnFvytm0Z2tkbAr49B74_5ZVxyfM3iuegqMYVhqr51-MMozT728-HPznBu1SnVVDqEYC9S8YPj8MWS8oQD-w"
     }
   },
-  "serverPort": 61009,
-  "proxy": "http://d2c2c6d3-7aba-403f-a860-81bf1d1d6431:IRaGposUsQTnetDhNSfJyLB8FDyEyQFD@tun.testsprite.com:8080"
+  "serverPort": 58641
 }
